@@ -46,6 +46,9 @@ class Recipe(models.Model):
         verbose_name='Ингредиенты',
         related_name='recipes'
     )
+    imgae = models.ImageField(
+        'Картинка'
+    )
 
     @property
     def total_calories(self):
