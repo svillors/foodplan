@@ -35,6 +35,17 @@ class Ingredient(models.Model):
         return quantity / self.base_factor() * self.calories_per_unit
 
 
+class Tag(models.Model):
+    name = models.CharField(
+        'Название',
+        max_length=50,
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Recipe(models.Model):
     name = models.CharField(
         'Название',
@@ -52,6 +63,12 @@ class Recipe(models.Model):
     )
     image = models.ImageField(
         'Картинка'
+    )
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name='Тэги',
+        blank=True,
+        null=True
     )
 
     def __str__(self):
