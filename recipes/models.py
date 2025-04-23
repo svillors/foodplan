@@ -41,7 +41,8 @@ class Recipe(models.Model):
         max_length=60
     )
     description = models.TextField(
-        'Описание'
+        'Описание',
+        blank=True
     )
     ingredients = models.ManyToManyField(
         Ingredient,
