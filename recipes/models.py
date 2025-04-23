@@ -18,6 +18,9 @@ class Ingredient(models.Model):
         'Калории на еденицу измерения'
     )
 
+    def __str__(self):
+        return f'продукт {self.name}'
+
     def base_factor(self):
         """
         если грамм/миллилитр то = 100
@@ -49,6 +52,9 @@ class Recipe(models.Model):
     imgae = models.ImageField(
         'Картинка'
     )
+
+    def __str__(self):
+        return f'Рецепт {self.name}'
 
     @property
     def total_calories(self):
