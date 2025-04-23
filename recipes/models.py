@@ -50,7 +50,7 @@ class Recipe(models.Model):
         verbose_name='Ингредиенты',
         related_name='recipes'
     )
-    imgae = models.ImageField(
+    image = models.ImageField(
         'Картинка'
     )
 
