@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
+from django.utils.timezone import now
+
+from .forms import CustomUserCreationForm
+from recipes.models import DailyMenu, Recipe
 
 
 def register_view(request):
@@ -52,6 +55,18 @@ def login_view(request):
 
 def lk_view(request):
     user = request.user
+    date = now().date()
+    user = request.user
+    dailymenu, created = DailyMenu.objects.get_or_create(
+        user=user,
+        date=date
+    )
+    if created:
+        # тут должен быть фильтр по аллергиям, но пока не завезли
+        recipes = Recipe.objects.order_by('?')[:3]
+        dailymenu.recipes.add(*recipes)
+    
+
     if request.method == 'POST':
         new_first_name = request.POST.get('first_name')
         user.first_name = new_first_name
@@ -69,7 +84,7 @@ def lk_view(request):
         'subscription_end': user.subscription_end if hasattr(user, 'subscription_end') else None,
     }
     return render(request, 'lk.html', context)
-
+    # return render(request, 'lk.html', context={'menu': dailymenu})
 
 @login_required
 @require_POST
@@ -81,5 +96,6 @@ def activate_subscription(request):
     return redirect('lk')
 
 
-def subscribe(request):
-    return render(request, 'subscription.html')
+# def subscribe(request):
+#     return render(request, 'subscription.html')
+

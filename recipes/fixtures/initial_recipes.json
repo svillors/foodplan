@@ -1,0 +1,1462 @@
+[
+  {
+    "model": "recipes.ingredient",
+    "pk": 1,
+    "fields": {
+      "name": "Молоко",
+      "unit": "ml",
+      "price_per_unit": 90.0,
+      "calories_per_unit": 60
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 2,
+    "fields": {
+      "name": "Овсяные хлопья",
+      "unit": "g",
+      "price_per_unit": 50.0,
+      "calories_per_unit": 380
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 3,
+    "fields": {
+      "name": "Банан",
+      "unit": "pcs",
+      "price_per_unit": 15.0,
+      "calories_per_unit": 95
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 4,
+    "fields": {
+      "name": "Куриная грудка",
+      "unit": "g",
+      "price_per_unit": 120.0,
+      "calories_per_unit": 165
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 5,
+    "fields": {
+      "name": "Оливковое масло",
+      "unit": "ml",
+      "price_per_unit": 500.0,
+      "calories_per_unit": 884
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 6,
+    "fields": {
+      "name": "Рис",
+      "unit": "g",
+      "price_per_unit": 40.0,
+      "calories_per_unit": 340
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 7,
+    "fields": {
+      "name": "Брокколи",
+      "unit": "g",
+      "price_per_unit": 60.0,
+      "calories_per_unit": 34
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 8,
+    "fields": {
+      "name": "Яйцо",
+      "unit": "pcs",
+      "price_per_unit": 9.0,
+      "calories_per_unit": 75
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 9,
+    "fields": {
+      "name": "Томаты",
+      "unit": "g",
+      "price_per_unit": 40.0,
+      "calories_per_unit": 18
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 10,
+    "fields": {
+      "name": "Огурец",
+      "unit": "g",
+      "price_per_unit": 30.0,
+      "calories_per_unit": 15
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 11,
+    "fields": {
+      "name": "Авокадо",
+      "unit": "pcs",
+      "price_per_unit": 25.0,
+      "calories_per_unit": 250
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 12,
+    "fields": {
+      "name": "Паста",
+      "unit": "g",
+      "price_per_unit": 40.0,
+      "calories_per_unit": 350
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 13,
+    "fields": {
+      "name": "Тунец (консервы)",
+      "unit": "pkg",
+      "price_per_unit": 180.0,
+      "calories_per_unit": 200
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 14,
+    "fields": {
+      "name": "Картофель",
+      "unit": "g",
+      "price_per_unit": 20.0,
+      "calories_per_unit": 77
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 15,
+    "fields": {
+      "name": "Сыр моцарелла",
+      "unit": "g",
+      "price_per_unit": 180.0,
+      "calories_per_unit": 280
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 16,
+    "fields": {
+      "name": "Филе рыбы",
+      "unit": "g",
+      "price_per_unit": 150.0,
+      "calories_per_unit": 120
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 17,
+    "fields": {
+      "name": "Фасоль красная",
+      "unit": "g",
+      "price_per_unit": 50.0,
+      "calories_per_unit": 333
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 18,
+    "fields": {
+      "name": "Томатный соус",
+      "unit": "g",
+      "price_per_unit": 60.0,
+      "calories_per_unit": 70
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 19,
+    "fields": {
+      "name": "Йогурт",
+      "unit": "pkg",
+      "price_per_unit": 60.0,
+      "calories_per_unit": 63
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 20,
+    "fields": {
+      "name": "Шпинат",
+      "unit": "g",
+      "price_per_unit": 60.0,
+      "calories_per_unit": 23
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 1,
+    "fields": {
+      "name": "без морепродуктов"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 2,
+    "fields": {
+      "name": "без мяса"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 3,
+    "fields": {
+      "name": "без зерновых"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 4,
+    "fields": {
+      "name": "без продуктов пчеловодства"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 5,
+    "fields": {
+      "name": "без орехов и бобовых"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 6,
+    "fields": {
+      "name": "без молочных продуктов"
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 1,
+    "fields": {
+      "name": "Овсянка с бананом",
+      "description": "Питательный завтрак из овсянки и банана.",
+      "image": "recipes_img/recipe_1.jpg",
+      "tags": [
+        1,
+        2,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 1,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 2,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 2,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 1,
+      "quantity": 200
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 3,
+    "fields": {
+      "recipe": 1,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 2,
+    "fields": {
+      "name": "Яичница с томатами",
+      "description": "Классическая яичница с сочными томатами.",
+      "image": "recipes_img/recipe_2.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 4,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 8,
+      "quantity": 3
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 5,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 9,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 6,
+    "fields": {
+      "recipe": 2,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 3,
+    "fields": {
+      "name": "Греческий салат",
+      "description": "Свежий салат с овощами и сыром.",
+      "image": "recipes_img/recipe_3.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 7,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 8,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 9,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 9,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 15,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 10,
+    "fields": {
+      "recipe": 3,
+      "ingredient": 5,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 4,
+    "fields": {
+      "name": "Куриная грудка с рисом и брокколи",
+      "description": "Полноценное блюдо для обеда.",
+      "image": "recipes_img/recipe_4.jpg",
+      "tags": [
+        1,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 11,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 4,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 12,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 6,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 13,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 7,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 14,
+    "fields": {
+      "recipe": 4,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 5,
+    "fields": {
+      "name": "Паста с тунцом",
+      "description": "Быстрая паста с консервированным тунцом.",
+      "image": "recipes_img/recipe_5.jpg",
+      "tags": [
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 15,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 12,
+      "quantity": 120
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 16,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 13,
+      "quantity": 1.0
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 17,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 18,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 18,
+    "fields": {
+      "recipe": 5,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 6,
+    "fields": {
+      "name": "Запеченный картофель с сыром",
+      "description": "Сытное блюдо на ужин.",
+      "image": "recipes_img/recipe_6.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 19,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 14,
+      "quantity": 200
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 20,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 15,
+      "quantity": 60
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 21,
+    "fields": {
+      "recipe": 6,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 7,
+    "fields": {
+      "name": "Смузи банан-молоко",
+      "description": "Питательный смузи на завтрак.",
+      "image": "recipes_img/recipe_7.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 22,
+    "fields": {
+      "recipe": 7,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 23,
+    "fields": {
+      "recipe": 7,
+      "ingredient": 1,
+      "quantity": 250
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 24,
+    "fields": {
+      "recipe": 7,
+      "ingredient": 19,
+      "quantity": 1.0
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 8,
+    "fields": {
+      "name": "Салат с авокадо",
+      "description": "Легкий салат с авокадо и овощами.",
+      "image": "recipes_img/recipe_8.jpeg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 25,
+    "fields": {
+      "recipe": 8,
+      "ingredient": 11,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 26,
+    "fields": {
+      "recipe": 8,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 27,
+    "fields": {
+      "recipe": 8,
+      "ingredient": 9,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 28,
+    "fields": {
+      "recipe": 8,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 29,
+    "fields": {
+      "recipe": 8,
+      "ingredient": 20,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 9,
+    "fields": {
+      "name": "Рыба запеченная со шпинатом",
+      "description": "Полезный ужин из рыбы.",
+      "image": "recipes_img/recipe_9.jpg",
+      "tags": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 30,
+    "fields": {
+      "recipe": 9,
+      "ingredient": 16,
+      "quantity": 180
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 31,
+    "fields": {
+      "recipe": 9,
+      "ingredient": 20,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 32,
+    "fields": {
+      "recipe": 9,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 10,
+    "fields": {
+      "name": "Буррито с фасолью",
+      "description": "Мексиканский вариант ужина.",
+      "image": "recipes_img/recipe_10.jpeg",
+      "tags": [
+        1,
+        2,
+        4,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 33,
+    "fields": {
+      "recipe": 10,
+      "ingredient": 17,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 34,
+    "fields": {
+      "recipe": 10,
+      "ingredient": 6,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 35,
+    "fields": {
+      "recipe": 10,
+      "ingredient": 18,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 36,
+    "fields": {
+      "recipe": 10,
+      "ingredient": 11,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 11,
+    "fields": {
+      "name": "Омлет с брокколи",
+      "description": "Нежный омлет с брокколи.",
+      "image": "recipes_img/recipe_11.webp",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 37,
+    "fields": {
+      "recipe": 11,
+      "ingredient": 8,
+      "quantity": 3
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 38,
+    "fields": {
+      "recipe": 11,
+      "ingredient": 7,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 39,
+    "fields": {
+      "recipe": 11,
+      "ingredient": 1,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 40,
+    "fields": {
+      "recipe": 11,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 12,
+    "fields": {
+      "name": "Шакшука",
+      "description": "Яйца, тушенные в томатном соусе.",
+      "image": "recipes_img/recipe_12.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 41,
+    "fields": {
+      "recipe": 12,
+      "ingredient": 8,
+      "quantity": 3
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 42,
+    "fields": {
+      "recipe": 12,
+      "ingredient": 9,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 43,
+    "fields": {
+      "recipe": 12,
+      "ingredient": 5,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 44,
+    "fields": {
+      "recipe": 12,
+      "ingredient": 20,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 13,
+    "fields": {
+      "name": "Салат Цезарь",
+      "description": "Упрощённая версия Цезаря.",
+      "image": "recipes_img/recipe_13.webp",
+      "tags": [
+        1,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 45,
+    "fields": {
+      "recipe": 13,
+      "ingredient": 4,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 46,
+    "fields": {
+      "recipe": 13,
+      "ingredient": 15,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 47,
+    "fields": {
+      "recipe": 13,
+      "ingredient": 9,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 48,
+    "fields": {
+      "recipe": 13,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 49,
+    "fields": {
+      "recipe": 13,
+      "ingredient": 10,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 14,
+    "fields": {
+      "name": "Карри с курицей",
+      "description": "Пряное карри с курицей и рисом.",
+      "image": "recipes_img/recipe_14.webp",
+      "tags": [
+        1,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 50,
+    "fields": {
+      "recipe": 14,
+      "ingredient": 4,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 51,
+    "fields": {
+      "recipe": 14,
+      "ingredient": 6,
+      "quantity": 120
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 52,
+    "fields": {
+      "recipe": 14,
+      "ingredient": 18,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 53,
+    "fields": {
+      "recipe": 14,
+      "ingredient": 5,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 15,
+    "fields": {
+      "name": "Тунец салат",
+      "description": "Салат с тунцом и свежими овощами.",
+      "image": "recipes_img/recipe_15.webp",
+      "tags": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 54,
+    "fields": {
+      "recipe": 15,
+      "ingredient": 13,
+      "quantity": 1.0
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 55,
+    "fields": {
+      "recipe": 15,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 56,
+    "fields": {
+      "recipe": 15,
+      "ingredient": 9,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 57,
+    "fields": {
+      "recipe": 15,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 58,
+    "fields": {
+      "recipe": 15,
+      "ingredient": 20,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 16,
+    "fields": {
+      "name": "Йогурт с бананом",
+      "description": "Легкий десерт.",
+      "image": "recipes_img/recipe_16.jpeg",
+      "tags": [
+        1,
+        2,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 59,
+    "fields": {
+      "recipe": 16,
+      "ingredient": 19,
+      "quantity": 1.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 60,
+    "fields": {
+      "recipe": 16,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 61,
+    "fields": {
+      "recipe": 16,
+      "ingredient": 2,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 17,
+    "fields": {
+      "name": "Брокколи на пару",
+      "description": "Простой гарнир из брокколи.",
+      "image": "recipes_img/recipe_17.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 62,
+    "fields": {
+      "recipe": 17,
+      "ingredient": 7,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 63,
+    "fields": {
+      "recipe": 17,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 18,
+    "fields": {
+      "name": "Печеный картофель",
+      "description": "Картофель, запеченный с маслом.",
+      "image": "recipes_img/recipe_18.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 64,
+    "fields": {
+      "recipe": 18,
+      "ingredient": 14,
+      "quantity": 250
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 65,
+    "fields": {
+      "recipe": 18,
+      "ingredient": 5,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 19,
+    "fields": {
+      "name": "Овощной салат",
+      "description": "Свежие овощи со шпинатом.",
+      "image": "recipes_img/recipe_19.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 66,
+    "fields": {
+      "recipe": 19,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 67,
+    "fields": {
+      "recipe": 19,
+      "ingredient": 9,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 68,
+    "fields": {
+      "recipe": 19,
+      "ingredient": 20,
+      "quantity": 70
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 69,
+    "fields": {
+      "recipe": 19,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 20,
+    "fields": {
+      "name": "Рис с овощами",
+      "description": "Диетический рис с овощами.",
+      "image": "recipes_img/recipe_20.jpeg",
+      "tags": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 70,
+    "fields": {
+      "recipe": 20,
+      "ingredient": 6,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 71,
+    "fields": {
+      "recipe": 20,
+      "ingredient": 7,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 72,
+    "fields": {
+      "recipe": 20,
+      "ingredient": 9,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 73,
+    "fields": {
+      "recipe": 20,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 21,
+    "fields": {
+      "name": "Картофельный суп",
+      "description": "Лёгкий картофельный суп с брокколи.",
+      "image": "recipes_img/recipe_21.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 74,
+    "fields": {
+      "recipe": 21,
+      "ingredient": 14,
+      "quantity": 200
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 75,
+    "fields": {
+      "recipe": 21,
+      "ingredient": 7,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 76,
+    "fields": {
+      "recipe": 21,
+      "ingredient": 1,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 77,
+    "fields": {
+      "recipe": 21,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 22,
+    "fields": {
+      "name": "Банановые панкейки",
+      "description": "Пышные панкейки без муки.",
+      "image": "recipes_img/recipe_22.jpg",
+      "tags": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 78,
+    "fields": {
+      "recipe": 22,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 79,
+    "fields": {
+      "recipe": 22,
+      "ingredient": 8,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 80,
+    "fields": {
+      "recipe": 22,
+      "ingredient": 2,
+      "quantity": 40
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 23,
+    "fields": {
+      "name": "Рис с тунцом и брокколи",
+      "description": "Полезное блюдо с морепродуктами.",
+      "image": "recipes_img/recipe_23.jpeg",
+      "tags": [
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 81,
+    "fields": {
+      "recipe": 23,
+      "ingredient": 6,
+      "quantity": 140
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 82,
+    "fields": {
+      "recipe": 23,
+      "ingredient": 13,
+      "quantity": 1.0
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 83,
+    "fields": {
+      "recipe": 23,
+      "ingredient": 7,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 84,
+    "fields": {
+      "recipe": 23,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 24,
+    "fields": {
+      "name": "Крем-суп из брокколи",
+      "description": "Нежный суп-пюре из брокколи.",
+      "image": "recipes_img/recipe_24.jpg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 85,
+    "fields": {
+      "recipe": 24,
+      "ingredient": 7,
+      "quantity": 200
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 86,
+    "fields": {
+      "recipe": 24,
+      "ingredient": 1,
+      "quantity": 120
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 87,
+    "fields": {
+      "recipe": 24,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 25,
+    "fields": {
+      "name": "Салат из шпината и авокадо",
+      "description": "Свежий салат для ужина.",
+      "image": "recipes_img/recipe_25.jpeg",
+      "tags": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 88,
+    "fields": {
+      "recipe": 25,
+      "ingredient": 20,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 89,
+    "fields": {
+      "recipe": 25,
+      "ingredient": 11,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 90,
+    "fields": {
+      "recipe": 25,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 91,
+    "fields": {
+      "recipe": 25,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  }
+]
