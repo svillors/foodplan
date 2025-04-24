@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.utils import timezone
 
 
 def register_view(request):
@@ -33,7 +35,6 @@ def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(f"[DEBUG] Email: {email}, Password: {password}")
 
         user = authenticate(request, email=email, password=password)
 
@@ -49,6 +50,36 @@ def login_view(request):
     return render(request, 'auth.html')
 
 
-@login_required
 def lk_view(request):
-    return render(request, 'lk.html')
+    user = request.user
+    if request.method == 'POST':
+        new_first_name = request.POST.get('first_name')
+        user.first_name = new_first_name
+        try:
+            user.save()
+            messages.success(request, 'Данные успешно обновлены!')
+        except Exception as e:
+            messages.error(request, f'Ошибка: {str(e)}')
+
+        return redirect('lk')
+
+    context = {
+        'user': user,
+        'subscription_active': user.subscription_active if hasattr(user, 'subscription_active') else False,
+        'subscription_end': user.subscription_end if hasattr(user, 'subscription_end') else None,
+    }
+    return render(request, 'lk.html', context)
+
+
+@login_required
+@require_POST
+def activate_subscription(request):
+    user = request.user
+    user.subscription_active = True
+    user.subscription_end = timezone.now() + timezone.timedelta(days=30)
+    user.save()
+    return redirect('lk')
+
+
+def subscribe(request):
+    return render(request, 'subscription.html')
