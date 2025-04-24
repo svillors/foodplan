@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 img/
 .DS_Store
+/media
