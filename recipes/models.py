@@ -1,4 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+
+
+User = get_user_model()
 
 
 class Ingredient(models.Model):
@@ -68,7 +72,6 @@ class Recipe(models.Model):
         Tag,
         verbose_name='Тэги',
         blank=True,
-        null=True
     )
 
     def __str__(self):
@@ -107,3 +110,21 @@ class IngredientItem(models.Model):
     @property
     def price(self):
         return self.ingredient.price_for(self.quantity)
+
+
+class DailyMenu(models.Model):
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE
+    )
+    date = models.DateField(
+        'Дата'
+    )
+    recipes = models.ManyToManyField(
+        Recipe,
+        verbose_name='Рецепты'
+    )
+
+    class Meta:
+        unique_together = ['user', 'date']
