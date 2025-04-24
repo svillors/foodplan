@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
+
+from .forms import CustomUserCreationForm
+from recipes.models import DailyMenu, Recipe
 
 
 def register_view(request):
@@ -51,4 +54,14 @@ def login_view(request):
 
 @login_required
 def lk_view(request):
-    return render(request, 'lk.html')
+    date = now().date()
+    user = request.user
+    dailymenu, created = DailyMenu.objects.get_or_create(
+        user=user,
+        date=date
+    )
+    if created:
+        # тут должен быть фильтр по аллергиям, но пока не завезли
+        recipes = Recipe.objects.order_by('?')[:3]
+        dailymenu.recipes.add(*recipes)
+    return render(request, 'lk.html', context={'menu': dailymenu})
