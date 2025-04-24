@@ -7,13 +7,21 @@ from django.forms import EmailInput
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('email',)
+        fields = ('email', 'first_name', 'last_name')
         widgets = {
             "email": EmailInput(attrs={
                 "class": "form-control",
                 "placeholder": "Email",
                 "id": "email",
                 "name": "email"
+            }),
+            "first_name": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Имя"
+            }),
+            "last_name": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Фамилия"
             }),
         }
 
