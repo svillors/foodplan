@@ -6,7 +6,12 @@ User = get_user_model()
 
 
 class Ingredient(models.Model):
-    UNIT_CHOICES = [("g", "г"), ("ml", "мл"), ("pcs", "шт")]
+    UNIT_CHOICES = [
+        ("g", "г"),
+        ("ml", "мл"),
+        ("pcs", "шт"),
+        ("pkg", "упаков")
+    ]
     name = models.CharField(
         'Название',
         max_length=60
@@ -27,10 +32,11 @@ class Ingredient(models.Model):
 
     def base_factor(self):
         """
-        если грамм/миллилитр то = 100
+        если грамм/миллилитр то = 1000
         если шт то = 1
+        если упаковка то = 1
         """
-        return 100 if self.unit in ("g", "ml") else 1
+        return 1000 if self.unit in ("g", "ml") else 1
 
     def price_for(self, quantity):
         return quantity / self.base_factor() * self.price_per_unit
