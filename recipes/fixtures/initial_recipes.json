@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Молоко",
-      "unit": "ml",
+      "unit": "pkg",
       "price_per_unit": 90.0,
       "calories_per_unit": 60
     }
@@ -246,13 +246,15 @@
     "pk": 1,
     "fields": {
       "name": "Овсянка с бананом",
-      "description": "Питательный завтрак из овсянки и банана.",
+      "description": "Питательный завтрак из овсянки и банана. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_1.jpg",
       "tags": [
         1,
         2,
         4,
-        5
+        5,
+        7,
+        11
       ]
     }
   },
@@ -271,7 +273,7 @@
     "fields": {
       "recipe": 1,
       "ingredient": 1,
-      "quantity": 200
+      "quantity": 0.2
     }
   },
   {
@@ -288,7 +290,7 @@
     "pk": 2,
     "fields": {
       "name": "Яичница с томатами",
-      "description": "Классическая яичница с сочными томатами.",
+      "description": "Классическая яичница с сочными томатами. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_2.jpg",
       "tags": [
         1,
@@ -296,7 +298,10 @@
         3,
         4,
         5,
-        6
+        6,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -332,14 +337,17 @@
     "pk": 3,
     "fields": {
       "name": "Греческий салат",
-      "description": "Свежий салат с овощами и сыром.",
+      "description": "Свежий салат с овощами и сыром. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_3.jpg",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -384,13 +392,16 @@
     "pk": 4,
     "fields": {
       "name": "Куриная грудка с рисом и брокколи",
-      "description": "Полноценное блюдо для обеда.",
+      "description": "Полноценное блюдо для обеда. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_4.jpg",
       "tags": [
         1,
         4,
         5,
-        6
+        6,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -435,13 +446,15 @@
     "pk": 5,
     "fields": {
       "name": "Паста с тунцом",
-      "description": "Быстрая паста с консервированным тунцом.",
+      "description": "Быстрая паста с консервированным тунцом. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_5.jpg",
       "tags": [
         2,
         4,
         5,
-        6
+        6,
+        7,
+        11
       ]
     }
   },
@@ -486,14 +499,17 @@
     "pk": 6,
     "fields": {
       "name": "Запеченный картофель с сыром",
-      "description": "Сытное блюдо на ужин.",
+      "description": "Сытное блюдо на ужин. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_6.jpg",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -529,14 +545,17 @@
     "pk": 7,
     "fields": {
       "name": "Смузи банан-молоко",
-      "description": "Питательный смузи на завтрак.",
+      "description": "Питательный смузи на завтрак. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_7.jpg",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -555,7 +574,7 @@
     "fields": {
       "recipe": 7,
       "ingredient": 1,
-      "quantity": 250
+      "quantity": 0.25
     }
   },
   {
@@ -572,7 +591,7 @@
     "pk": 8,
     "fields": {
       "name": "Салат с авокадо",
-      "description": "Легкий салат с авокадо и овощами.",
+      "description": "Легкий салат с авокадо и овощами. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_8.jpeg",
       "tags": [
         1,
@@ -580,7 +599,10 @@
         3,
         4,
         5,
-        6
+        6,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -634,14 +656,16 @@
     "pk": 9,
     "fields": {
       "name": "Рыба запеченная со шпинатом",
-      "description": "Полезный ужин из рыбы.",
+      "description": "Полезный ужин из рыбы. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_9.jpg",
       "tags": [
         2,
         3,
         4,
         5,
-        6
+        6,
+        7,
+        11
       ]
     }
   },
@@ -677,13 +701,16 @@
     "pk": 10,
     "fields": {
       "name": "Буррито с фасолью",
-      "description": "Мексиканский вариант ужина.",
+      "description": "Мексиканский вариант ужина. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_10.jpeg",
       "tags": [
         1,
         2,
         4,
-        6
+        6,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -728,14 +755,17 @@
     "pk": 11,
     "fields": {
       "name": "Омлет с брокколи",
-      "description": "Нежный омлет с брокколи.",
+      "description": "Нежный омлет с брокколи. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_11.webp",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -763,7 +793,7 @@
     "fields": {
       "recipe": 11,
       "ingredient": 1,
-      "quantity": 50
+      "quantity": 0.05
     }
   },
   {
@@ -780,7 +810,7 @@
     "pk": 12,
     "fields": {
       "name": "Шакшука",
-      "description": "Яйца, тушенные в томатном соусе.",
+      "description": "Яйца, тушенные в томатном соусе. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_12.jpg",
       "tags": [
         1,
@@ -788,7 +818,10 @@
         3,
         4,
         5,
-        6
+        6,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -833,13 +866,15 @@
     "pk": 13,
     "fields": {
       "name": "Салат Цезарь",
-      "description": "Упрощённая версия Цезаря.",
+      "description": "Упрощённая версия Цезаря. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_13.webp",
       "tags": [
         1,
         3,
         4,
-        5
+        5,
+        7,
+        11
       ]
     }
   },
@@ -893,13 +928,16 @@
     "pk": 14,
     "fields": {
       "name": "Карри с курицей",
-      "description": "Пряное карри с курицей и рисом.",
+      "description": "Пряное карри с курицей и рисом. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_14.webp",
       "tags": [
         1,
         4,
         5,
-        6
+        6,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -944,14 +982,17 @@
     "pk": 15,
     "fields": {
       "name": "Тунец салат",
-      "description": "Салат с тунцом и свежими овощами.",
+      "description": "Салат с тунцом и свежими овощами. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_15.webp",
       "tags": [
         2,
         3,
         4,
         5,
-        6
+        6,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -1005,13 +1046,16 @@
     "pk": 16,
     "fields": {
       "name": "Йогурт с бананом",
-      "description": "Легкий десерт.",
+      "description": "Легкий десерт. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_16.jpeg",
       "tags": [
         1,
         2,
         4,
-        5
+        5,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -1047,7 +1091,7 @@
     "pk": 17,
     "fields": {
       "name": "Брокколи на пару",
-      "description": "Простой гарнир из брокколи.",
+      "description": "Простой гарнир из брокколи. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_17.jpg",
       "tags": [
         1,
@@ -1055,7 +1099,9 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        11
       ]
     }
   },
@@ -1082,7 +1128,7 @@
     "pk": 18,
     "fields": {
       "name": "Печеный картофель",
-      "description": "Картофель, запеченный с маслом.",
+      "description": "Картофель, запеченный с маслом. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_18.jpg",
       "tags": [
         1,
@@ -1090,7 +1136,10 @@
         3,
         4,
         5,
-        6
+        6,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -1117,7 +1166,7 @@
     "pk": 19,
     "fields": {
       "name": "Овощной салат",
-      "description": "Свежие овощи со шпинатом.",
+      "description": "Свежие овощи со шпинатом. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_19.jpg",
       "tags": [
         1,
@@ -1125,7 +1174,10 @@
         3,
         4,
         5,
-        6
+        6,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -1170,14 +1222,17 @@
     "pk": 20,
     "fields": {
       "name": "Рис с овощами",
-      "description": "Диетический рис с овощами.",
+      "description": "Диетический рис с овощами. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_20.jpeg",
       "tags": [
         1,
         2,
         4,
         5,
-        6
+        6,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -1222,14 +1277,16 @@
     "pk": 21,
     "fields": {
       "name": "Картофельный суп",
-      "description": "Лёгкий картофельный суп с брокколи.",
+      "description": "Лёгкий картофельный суп с брокколи. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_21.jpg",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        7,
+        11
       ]
     }
   },
@@ -1257,7 +1314,7 @@
     "fields": {
       "recipe": 21,
       "ingredient": 1,
-      "quantity": 100
+      "quantity": 0.1
     }
   },
   {
@@ -1274,14 +1331,17 @@
     "pk": 22,
     "fields": {
       "name": "Банановые панкейки",
-      "description": "Пышные панкейки без муки.",
+      "description": "Пышные панкейки без муки. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_22.jpg",
       "tags": [
         1,
         2,
         4,
         5,
-        6
+        6,
+        8,
+        11,
+        12
       ]
     }
   },
@@ -1317,13 +1377,16 @@
     "pk": 23,
     "fields": {
       "name": "Рис с тунцом и брокколи",
-      "description": "Полезное блюдо с морепродуктами.",
+      "description": "Полезное блюдо с морепродуктами. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_23.jpeg",
       "tags": [
         2,
         4,
         5,
-        6
+        6,
+        9,
+        11,
+        13
       ]
     }
   },
@@ -1368,14 +1431,17 @@
     "pk": 24,
     "fields": {
       "name": "Крем-суп из брокколи",
-      "description": "Нежный суп-пюре из брокколи.",
+      "description": "Нежный суп-пюре из брокколи. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_24.jpg",
       "tags": [
         1,
         2,
         3,
         4,
-        5
+        5,
+        10,
+        11,
+        14
       ]
     }
   },
@@ -1394,7 +1460,7 @@
     "fields": {
       "recipe": 24,
       "ingredient": 1,
-      "quantity": 120
+      "quantity": 0.12
     }
   },
   {
@@ -1411,7 +1477,7 @@
     "pk": 25,
     "fields": {
       "name": "Салат из шпината и авокадо",
-      "description": "Свежий салат для ужина.",
+      "description": "Свежий салат для ужина. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_25.jpeg",
       "tags": [
         1,
@@ -1419,7 +1485,9 @@
         3,
         4,
         5,
-        6
+        6,
+        7,
+        11
       ]
     }
   },
@@ -1457,6 +1525,815 @@
       "recipe": 25,
       "ingredient": 5,
       "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 21,
+    "fields": {
+      "name": "Греческий йогурт",
+      "unit": "pkg",
+      "price_per_unit": 80.0,
+      "calories_per_unit": 59
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 22,
+    "fields": {
+      "name": "Кокосовое молоко",
+      "unit": "pkg",
+      "price_per_unit": 220.0,
+      "calories_per_unit": 230
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 23,
+    "fields": {
+      "name": "Миндальная мука",
+      "unit": "g",
+      "price_per_unit": 700.0,
+      "calories_per_unit": 570
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 24,
+    "fields": {
+      "name": "Кето‑хлеб",
+      "unit": "pkg",
+      "price_per_unit": 350.0,
+      "calories_per_unit": 250
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 25,
+    "fields": {
+      "name": "Цветная капуста",
+      "unit": "g",
+      "price_per_unit": 50.0,
+      "calories_per_unit": 25
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 26,
+    "fields": {
+      "name": "Тофу",
+      "unit": "pkg",
+      "price_per_unit": 120.0,
+      "calories_per_unit": 76
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 27,
+    "fields": {
+      "name": "Зеленый салат",
+      "unit": "g",
+      "price_per_unit": 40.0,
+      "calories_per_unit": 16
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 28,
+    "fields": {
+      "name": "Бекон",
+      "unit": "g",
+      "price_per_unit": 900.0,
+      "calories_per_unit": 540
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 29,
+    "fields": {
+      "name": "Кокосовое масло",
+      "unit": "ml",
+      "price_per_unit": 600.0,
+      "calories_per_unit": 862
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 30,
+    "fields": {
+      "name": "Кешью",
+      "unit": "g",
+      "price_per_unit": 900.0,
+      "calories_per_unit": 553
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 7,
+    "fields": {
+      "name": "завтрак"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 8,
+    "fields": {
+      "name": "обед"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 9,
+    "fields": {
+      "name": "ужин"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 10,
+    "fields": {
+      "name": "десерт"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 11,
+    "fields": {
+      "name": "классическое"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 12,
+    "fields": {
+      "name": "низкоуглеводное"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 13,
+    "fields": {
+      "name": "вегетарианское"
+    }
+  },
+  {
+    "model": "recipes.tag",
+    "pk": 14,
+    "fields": {
+      "name": "кето"
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 31,
+    "fields": {
+      "name": "Тыква",
+      "unit": "g",
+      "price_per_unit": 45.0,
+      "calories_per_unit": 26
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 32,
+    "fields": {
+      "name": "Морковь",
+      "unit": "g",
+      "price_per_unit": 30.0,
+      "calories_per_unit": 41
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 33,
+    "fields": {
+      "name": "Семена чиа",
+      "unit": "g",
+      "price_per_unit": 700.0,
+      "calories_per_unit": 486
+    }
+  },
+  {
+    "model": "recipes.ingredient",
+    "pk": 34,
+    "fields": {
+      "name": "Мёд",
+      "unit": "g",
+      "price_per_unit": 600.0,
+      "calories_per_unit": 304
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 46,
+    "fields": {
+      "name": "Кето‑блинчики на миндальной муке",
+      "description": "Воздушные блинчики из миндальной муки и кокосового молока — отличный вариант низкоуглеводного завтрака.",
+      "image": "recipes_img/recipe_26.jpg",
+      "tags": [
+        11,
+        12,
+        14,
+        7
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 172,
+    "fields": {
+      "recipe": 46,
+      "ingredient": 23,
+      "quantity": 40
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 173,
+    "fields": {
+      "recipe": 46,
+      "ingredient": 8,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 174,
+    "fields": {
+      "recipe": 46,
+      "ingredient": 22,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 175,
+    "fields": {
+      "recipe": 46,
+      "ingredient": 29,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 47,
+    "fields": {
+      "name": "Чиа‑пудинг с кокосовым молоком",
+      "description": "Нежный пудинг без сахара, настоянный на семенах чиа и кокосовом молоке, украшенный ломтиками банана и ложкой мёда.",
+      "image": "recipes_img/recipe_27.webp",
+      "tags": [
+        10,
+        11,
+        13
+      ]
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 48,
+    "fields": {
+      "name": "Кето‑блинчики на миндальной муке",
+      "description": "Воздушные блинчики из миндальной муки и кокосового молока — отличный вариант низкоуглеводного завтрака.",
+      "image": "recipes_img/recipe_28.jpg",
+      "tags": [
+        11,
+        12,
+        14,
+        7
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 176,
+    "fields": {
+      "recipe": 48,
+      "ingredient": 23,
+      "quantity": 40
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 177,
+    "fields": {
+      "recipe": 48,
+      "ingredient": 8,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 178,
+    "fields": {
+      "recipe": 48,
+      "ingredient": 22,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 179,
+    "fields": {
+      "recipe": 48,
+      "ingredient": 29,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 49,
+    "fields": {
+      "name": "Чиа‑пудинг с кокосовым молоком",
+      "description": "Нежный пудинг без сахара, настоянный на семенах чиа и кокосовом молоке, украшенный ломтиками банана и ложкой мёда.",
+      "image": "recipes_img/recipe_29.jpg",
+      "tags": [
+        10,
+        11,
+        13
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 180,
+    "fields": {
+      "recipe": 49,
+      "ingredient": 33,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 181,
+    "fields": {
+      "recipe": 49,
+      "ingredient": 21,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 182,
+    "fields": {
+      "recipe": 49,
+      "ingredient": 22,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 183,
+    "fields": {
+      "recipe": 49,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 184,
+    "fields": {
+      "recipe": 49,
+      "ingredient": 34,
+      "quantity": 20
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 50,
+    "fields": {
+      "name": "Тыквенный крем‑суп",
+      "description": "Бархатистый суп‑пюре из запечённой тыквы и моркови на кокосовом молоке.",
+      "image": "recipes_img/recipe_30.webp",
+      "tags": [
+        8,
+        11,
+        13
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 185,
+    "fields": {
+      "recipe": 50,
+      "ingredient": 31,
+      "quantity": 300
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 186,
+    "fields": {
+      "recipe": 50,
+      "ingredient": 32,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 187,
+    "fields": {
+      "recipe": 50,
+      "ingredient": 22,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 188,
+    "fields": {
+      "recipe": 50,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 51,
+    "fields": {
+      "name": "Кето‑бургер с беконом и авокадо",
+      "description": "Сочный бургер без булки: кето‑хлеб, хрустящий бекон, кремовое авокадо и яйцо пашот.",
+      "image": "recipes_img/recipe_31.webp",
+      "tags": [
+        9,
+        11,
+        12,
+        14
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 189,
+    "fields": {
+      "recipe": 51,
+      "ingredient": 28,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 190,
+    "fields": {
+      "recipe": 51,
+      "ingredient": 24,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 191,
+    "fields": {
+      "recipe": 51,
+      "ingredient": 11,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 192,
+    "fields": {
+      "recipe": 51,
+      "ingredient": 8,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 193,
+    "fields": {
+      "recipe": 51,
+      "ingredient": 9,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 52,
+    "fields": {
+      "name": "Салат «Нисуаз»",
+      "description": "Классический французский салат с консервированным тунцом, яйцом и свежими овощами.",
+      "image": "recipes_img/recipe_32.jpg",
+      "tags": [
+        8,
+        11,
+        12
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 194,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 13,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 195,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 8,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 196,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 10,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 197,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 9,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 198,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 199,
+    "fields": {
+      "recipe": 52,
+      "ingredient": 27,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 53,
+    "fields": {
+      "name": "Лосось со шпинатом",
+      "description": "Филе лосося, запечённое со сливочным соусом из кокосового молока и свежего шпината.",
+      "image": "recipes_img/recipe_33.webp",
+      "tags": [
+        9,
+        11,
+        14
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 200,
+    "fields": {
+      "recipe": 53,
+      "ingredient": 16,
+      "quantity": 180
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 201,
+    "fields": {
+      "recipe": 53,
+      "ingredient": 20,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 202,
+    "fields": {
+      "recipe": 53,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 54,
+    "fields": {
+      "name": "Рис из цветной капусты с курицей",
+      "description": "Низкоуглеводная альтернатива плову: измельчённая цветная капуста обжаривается с куриной грудкой и специями.",
+      "image": "recipes_img/recipe_34.jpg",
+      "tags": [
+        8,
+        11,
+        12
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 203,
+    "fields": {
+      "recipe": 54,
+      "ingredient": 25,
+      "quantity": 200
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 204,
+    "fields": {
+      "recipe": 54,
+      "ingredient": 4,
+      "quantity": 150
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 205,
+    "fields": {
+      "recipe": 54,
+      "ingredient": 5,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 206,
+    "fields": {
+      "recipe": 54,
+      "ingredient": 7,
+      "quantity": 80
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 55,
+    "fields": {
+      "name": "Тофу‑стир‑фрай с брокколи",
+      "description": "Постное азиатское блюдо: тофу, брокколи и овощи, быстро обжаренные в кокосовом масле.",
+      "image": "recipes_img/recipe_35.jpeg",
+      "tags": [
+        9,
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 207,
+    "fields": {
+      "recipe": 55,
+      "ingredient": 26,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 208,
+    "fields": {
+      "recipe": 55,
+      "ingredient": 7,
+      "quantity": 120
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 209,
+    "fields": {
+      "recipe": 55,
+      "ingredient": 29,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 210,
+    "fields": {
+      "recipe": 55,
+      "ingredient": 32,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 211,
+    "fields": {
+      "recipe": 55,
+      "ingredient": 25,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 56,
+    "fields": {
+      "name": "Йогурт с мёдом и кешью",
+      "description": "Сливочный греческий йогурт с хрустящими орехами кешью и натуральным мёдом.",
+      "image": "recipes_img/recipe_36.jpeg",
+      "tags": [
+        10,
+        11,
+        13
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 212,
+    "fields": {
+      "recipe": 56,
+      "ingredient": 21,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 213,
+    "fields": {
+      "recipe": 56,
+      "ingredient": 30,
+      "quantity": 30
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 214,
+    "fields": {
+      "recipe": 56,
+      "ingredient": 34,
+      "quantity": 15
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 215,
+    "fields": {
+      "recipe": 56,
+      "ingredient": 3,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.recipe",
+    "pk": 57,
+    "fields": {
+      "name": "Кокосовый смузи",
+      "description": "Освежающий утренний смузи на кокосовом молоке с бананом и шпинатом.",
+      "image": "recipes_img/recipe_37.jpeg",
+      "tags": [
+        11,
+        13,
+        7
+      ]
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 216,
+    "fields": {
+      "recipe": 57,
+      "ingredient": 22,
+      "quantity": 0.5
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 217,
+    "fields": {
+      "recipe": 57,
+      "ingredient": 3,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 218,
+    "fields": {
+      "recipe": 57,
+      "ingredient": 19,
+      "quantity": 1
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 219,
+    "fields": {
+      "recipe": 57,
+      "ingredient": 29,
+      "quantity": 10
+    }
+  },
+  {
+    "model": "recipes.ingredientitem",
+    "pk": 220,
+    "fields": {
+      "recipe": 57,
+      "ingredient": 20,
+      "quantity": 30
     }
   }
 ]
