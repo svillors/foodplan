@@ -18,7 +18,7 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
+                {% comment %} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,7 +34,36 @@
                         <button class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</button>
                         <button class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</button>
                     </li>
+                </ul> {% endcomment %}
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav ms-auto flex-row align-items-center">
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="{% url 'lk' %}" class="nav-link foodplan_green d-flex align-items-center">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% else %}
+                                <img src="{% static 'img/test_avatar.png' %}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% endif %}
+                            {{ user.first_name|default:user.email }}
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                        </form>
+                    </li>
                 </ul>
+            {% else %}
+                <ul class="navbar-nav ms-auto flex-row align-items-center">
+                    <li class="nav-item">
+                        <a href="{% url 'subscribe' %}" class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'auth' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</a>
+                    </li>
+                </ul>
+            {% endif %}
             </div>
             </div>
         </nav>
@@ -55,6 +84,13 @@
                 <div class="card px-5 py-3 d-flex align-items-center foodplan__shadow">
                     <form method="post" action="{% url 'auth' %}">
                         {% csrf_token %}
+                        {% if messages %}
+                        <div class="alert alert-info">
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                         <h1 class="mb-4 text-center"><strong>Вход</strong></h1>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>

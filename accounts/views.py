@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from django.utils.timezone import now
-
 from .forms import CustomUserCreationForm
 from recipes.models import DailyMenu, Recipe
 
@@ -14,27 +13,33 @@ def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.first_name = form.cleaned_data.get('first_name')
+            user.save()
+
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            user = authenticate(request, email=email, password=password)
 
-            if user:
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
                 login(request, user)
-                return redirect('index')
+                return redirect('lk')
+            else:
+                messages.error(request, 'Ошибка аутентификации.')
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
 
-        return render(request, 'registration.html', {'form': form})
-
     else:
         form = CustomUserCreationForm()
-        return render(request, 'registration.html', {'form': form})
+
+    return render(request, 'registration.html', {'form': form})
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('lk')
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -117,6 +122,7 @@ def lk_view(request):
         'meal_tags': meal_tags
     }
     return render(request, 'lk.html', context)
+
 
 @login_required
 @require_POST

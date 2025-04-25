@@ -12,7 +12,7 @@
     <title>Foodplan 2021 - Меню на неделю FOODPLAN</title>
 </head>
 <body>
-    <header>
+    {% comment %} <header>
         <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'index' %}">
@@ -22,6 +22,61 @@
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
                 </form>
+                {% if user.is_authenticated %}
+                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                        <a href="{% url 'lk' %}" class="nav-link foodplan_green">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% else %}
+                                <img src="{% static 'img/test_avatar.png' %}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% endif %}
+                            {{ user.first_name|default:user.email }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                        <a href="{% url 'subscribe' %}" class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
+                        <a href="{% url 'auth' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</a>
+                    </li>
+                {% endif %}
+            </div>
+        </nav>
+    </header> {% endcomment %}
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
+                </a>
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto flex-row align-items-center">
+                        <li class="nav-item d-flex align-items-center">
+                            <a href="{% url 'lk' %}" class="nav-link foodplan_green d-flex align-items-center">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar.url }}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                                {% else %}
+                                    <img src="{% static 'img/test_avatar.png' %}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                                {% endif %}
+                                {{ user.first_name|default:user.email }}
+                            </a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <form action="{% url 'logout' %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ms-auto flex-row align-items-center">
+                        <li class="nav-item">
+                            <a href="{% url 'subscribe' %}" class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'auth' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</a>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
         </nav>
     </header>
@@ -38,7 +93,7 @@
                     
                     <div class="card col-12 col-md-2 p-3 mb-3 d-flex flex-column align-items-center foodplan__shadow">
                         <div class="position-relative">
-                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'accounts/img/test_avatar.png' %}{% endif %}" 
+                            <img src="{% if user.avatar %}{{ user.avatar.url }}{% else %}{% static 'img/test_avatar.png' %}{% endif %}" 
                                 alt="Аватар" width="100" height="100" class="rounded-pill">
                             <span class="badge rounded-circle position-absolute bottom-0 end-0 foodplan__bg_green avatar__plus"><a href="#"
                                     class="link-dark text-decoration-none align-middle">+</a></span>
@@ -191,11 +246,11 @@
     <footer>
         <nav class="navbar navbar-expand-md navbar-light mt-5">
             <div class="container p-2">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
                 <div class="footer__sideBtns d-flex">
-                    <a href="#">
+                    <a href="https://vk.com/devmanorg">
                         <img src="{% static 'img/vk.png' %}" height="38" width="auto" alt="">
                     </a>
                 </div>
