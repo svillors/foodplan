@@ -183,7 +183,7 @@
                                             <img src="{% static 'img/circle1.png' %}" alt="" class="w-100">
                                         </div>
                                         <div class="col-10 col-md-10">
-                                            <div class="row">
+                                            <div class="row py-4 mb-5">
                                                 <div class="col-12">
                                                     {% if subscription_active %}
                                                         <div class="alert alert-success">
@@ -196,14 +196,7 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-md-12 col-lg-9">
-                                                    {% for i in menu %}
-                                                    <h4>
-                                                        {{i.name}}
-                                                    </h4>
-                                                        {% for q in i.tags.all %}
-                                                            <p>{{q.name}}</p>
-                                                        {% endfor %}
-                                                    {% endfor %} 
+                                                    <h5>что-то сюда вкруитить надо</h5>
                                                 </div>
                                                 <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
                                                     <div class="d-flex flex-row justify-content-between">
@@ -222,6 +215,33 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <h1 class="mb-4" style="display: flex; align-items: right; color: rgb(37, 35, 35);">Ваше меню на сегодня</h1>
+                                        {% for recipe in menu %}
+                                            {% for tag in recipe.tags.all %}
+                                                {% if tag.name in meal_tags %}
+                                                    <h3>{{tag.name}}</h3>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <div class="row py-5 border-bottom mb-4" style="margin-left: 2px;">
+                                                <div class="col-12 col-md-2">
+                                                    <a href="{% url 'recipe_detail' recipe.pk %}">
+                                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="img-fluid rounded shadow-sm" style="max-height: 300px; object-fit: cover; width: 100%;">
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 col-md-10">
+                                                    <h4 class="mt-2">
+                                                        <a href="{% url 'recipe_detail' recipe.pk %}" style="color: rgb(23, 23, 23); text-decoration: none;">
+                                                            {{ recipe.name }}
+                                                        </a>
+                                                    </h4>
+                                                    <p>{{ recipe.description }}</p>
+                                                    <div class="text-muted d-flex flex-column justify-content-between small">
+                                                        <span>Калории: {{recipe.total_calories|floatformat:0}} ккал.</span>
+                                                        <span>Цена продуктов: {{recipe.total_price|floatformat:0}} руб.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>

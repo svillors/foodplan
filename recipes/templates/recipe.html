@@ -34,7 +34,7 @@
                     <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
                         <h2>{{recipe.name}}</h2>
                         <p>{{recipe.description}}</p>
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush mb-5">
                             {% for item in recipe.items.all %}
                               <li class="list-group-item">{{item.ingredient.name}} {{item.quantity|floatformat:0}} {{item.ingredient.get_unit_display}}.</li>
                             {% endfor %}
