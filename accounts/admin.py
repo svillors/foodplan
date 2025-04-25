@@ -16,7 +16,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Персональная информация', {'fields': ('first_name', 'last_name')}),
         ('Права доступа', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
-        ('Подписка', {'fields': ('subscription_active', 'subscription_end')}),
+        ('Подписка', {'fields': ('subscription_active', 'subscription_end', 'prefers')}),
     )
 
     add_fieldsets = (
