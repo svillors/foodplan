@@ -23,7 +23,6 @@ class CustomUser(AbstractUser):
         'recipes.Tag',
         verbose_name='Предпочтения',
         blank=True,
-        null=True
     )
     avatar = models.ImageField(
         upload_to='avatars/',

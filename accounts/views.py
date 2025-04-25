@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -61,52 +61,63 @@ def login_view(request):
 
 def lk_view(request):
     user = request.user
-    try:
-        last_order = user.orders.latest('created_at')
-        meal_tags = []
-        if last_order.include_breakfast: meal_tags.append('завтрак')
-        if last_order.include_lunch: meal_tags.append('обед')
-        if last_order.include_dinner: meal_tags.append('ужин')
-        if last_order.include_dessert: meal_tags.append('десерт')
-    except Order.DoesNotExist:  # Теперь Order будет распознан
-        meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
-        
-    user = request.user
     date = now().date()
-    user = request.user
+    
+    # Получение последнего оплаченного заказа
+    try:
+        last_order = user.orders.filter(is_paid=True).latest('created_at')
+    except Order.DoesNotExist:
+        last_order = None
+    
+    # Формирование meal_tags на основе последнего заказа (если есть)
+    if last_order:
+        meal_tags = []
+        if last_order.include_breakfast: 
+            meal_tags.append('завтрак')
+        if last_order.include_lunch: 
+            meal_tags.append('обед')
+        if last_order.include_dinner: 
+            meal_tags.append('ужин')
+        if last_order.include_dessert: 
+            meal_tags.append('десерт')
+    # else:
+    #     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+    meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+    # Работа с DailyMenu
     dailymenu, created = DailyMenu.objects.get_or_create(
         user=user,
         date=date
     )
+    
     final_recipes = []
-    meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
-    meals = None
-
+    
     def meal_index(recipe):
         tag_names = [tag.name for tag in recipe.tags.all()]
         for i, meal in enumerate(meal_tags):
             if meal in tag_names:
                 return i
-        return 999
-
+        return len(meal_tags)
+    
+    # Проверяем активна ли подписка и не истекла ли
+    subscription_active = user.subscription_active and user.subscription_end and user.subscription_end >= date
+    
+    # Генерация меню
     if created:
-        if user.subscription_active:
+        if subscription_active:
             user_tags = user.prefers.all()
-
-            meals = [
-                tag for tag in user.prefers.all() if tag.name in meal_tags
-            ]
+            valid_meals = [tag.name for tag in user_tags if tag.name in meal_tags]
+            
             selected_recipes = []
-            for meal in meals:
+            for meal in valid_meals or meal_tags:
                 recipe = (
                     Recipe.objects
-                    .filter(tags__name=meal, tags__in=user_tags)
+                    .filter(tags__name=meal)
                     .order_by('?')
-                    .prefetch_related('tags')
                     .first()
                 )
                 if recipe:
                     selected_recipes.append(recipe)
+            
             final_recipes = sorted(selected_recipes, key=meal_index)
             dailymenu.recipes.add(*final_recipes)
         else:
@@ -114,26 +125,59 @@ def lk_view(request):
             dailymenu.recipes.add(*final_recipes)
     else:
         final_recipes = sorted(dailymenu.recipes.all(), key=meal_index)
-
+    
+    # Обновление данных пользователя
     if request.method == 'POST':
         new_first_name = request.POST.get('first_name')
-        user.first_name = new_first_name
-        try:
-            user.save()
-            messages.success(request, 'Данные успешно обновлены!')
-        except Exception as e:
-            messages.error(request, f'Ошибка: {str(e)}')
-
+        if new_first_name:
+            user.first_name = new_first_name
+            try:
+                user.save()
+                messages.success(request, 'Данные успешно обновлены!')
+            except Exception as e:
+                messages.error(request, f'Ошибка: {str(e)}')
         return redirect('lk')
-
+    
+    # Формирование контекста
     context = {
         'user': user,
-        'subscription_active': user.subscription_active if hasattr(user, 'subscription_active') else False,
-        'subscription_end': user.subscription_end if hasattr(user, 'subscription_end') else None,
+        'subscription_active': subscription_active,
+        'subscription_end': user.subscription_end,
         'menu': final_recipes,
-        'meal_tags': meal_tags
+        'meal_tags': meal_tags,
+        'dailymenu': dailymenu,
+        'order': last_order,  # Передаем последний оплаченный заказ
     }
     return render(request, 'lk.html', context)
+
+
+def change_recipe(request, pk):
+    user = request.user
+    date = now().date()
+    user_tags = user.prefers.all()
+    dailymenu = DailyMenu.objects.get(user=user, date=date)
+    meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+    old_order = get_object_or_404(Recipe, pk=pk)
+    reqiured_meal = [
+        tag.name for tag in old_order.tags.all() if tag.name in meal_tags
+    ].pop()
+    new_recipe = (
+        Recipe.objects
+        .filter(tags__name=reqiured_meal, tags__in=user_tags)
+        .exclude(pk=pk)
+        .order_by('?')
+        .prefetch_related('tags')
+        .first()
+    )
+    dailymenu.recipes.remove(old_order)
+    dailymenu.recipes.add(new_recipe)
+    dailymenu.change_count -= 1
+    dailymenu.save()
+    messages.success(
+        request,
+        f'Поменяли рецепт! Осталось смен: {dailymenu.change_count}' if dailymenu.change_count >= 1 else 'Поменяли рецепт! На сегодня смены кончились'
+    )
+    return redirect('lk')
 
 
 @login_required

@@ -131,6 +131,10 @@ class DailyMenu(models.Model):
         Recipe,
         verbose_name='Рецепты'
     )
+    change_count = models.IntegerField(
+        'Количество изменений блюд',
+        default=3
+    )
 
     class Meta:
         unique_together = ['user', 'date']

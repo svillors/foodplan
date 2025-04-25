@@ -12,36 +12,6 @@
     <title>Foodplan 2021 - Меню на неделю FOODPLAN</title>
 </head>
 <body>
-    {% comment %} <header>
-        <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
-            <div class="container">
-                <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
-                </a>
-                <form action="{% url 'logout' %}" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
-                </form>
-                {% if user.is_authenticated %}
-                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
-                        <a href="{% url 'lk' %}" class="nav-link foodplan_green">
-                            {% if user.avatar %}
-                                <img src="{{ user.avatar.url }}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
-                            {% else %}
-                                <img src="{% static 'img/test_avatar.png' %}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
-                            {% endif %}
-                            {{ user.first_name|default:user.email }}
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
-                        <a href="{% url 'subscribe' %}" class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
-                        <a href="{% url 'auth' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</a>
-                    </li>
-                {% endif %}
-            </div>
-        </nav>
-    </header> {% endcomment %}
     <header>
         <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
             <div class="container">
@@ -128,14 +98,6 @@
                                             {% endfor %}
                                         </div>
                                         {% endif %}
-                                        {% comment %} {% if order %}
-                                        <div class="alert alert-info">
-                                            <h4>Текущая подписка:</h4>
-                                            <p>Тип меню: {{ order.get_menu_type_display }}</p>
-                                            <p>Длительность: {{ order.duration }} месяцев</p>
-                                            <p>Количество персон: {{ order.persons }}</p>
-                                        </div>
-                                        {% endif %} {% endcomment %}
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="exampleInputEmail1" class="form-label">Имя</label>
@@ -159,18 +121,6 @@
                                             readonly
                                             >
                                         </div>
-                                        {% comment %} <div class="mb-3">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
-                                            </div>
-                                        
-                                            <input type="password" class="form-control" id="password">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleInputPassword1" class="form-label">Подтверждение пароля</label>
-                                            <input type="password" class="form-control" id="PasswordConfirm">
-                                        </div> {% endcomment %}
                                         <div class="d-block">
                                             <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Сохранить
                                                 изменения</button>
@@ -195,57 +145,69 @@
                                                         </div>
                                                     {% endif %}
                                                 </div>
-                                                <div class="col-md-12 col-lg-9">
-                                                    <h5>что-то сюда вкруитить надо</h5>
-                                                </div>
-                                                <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Персоны: </small><small>3</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Аллергии: </small><small>нет</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Калории: </small><small>1400</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Кол-во приёмов пищи: </small><small>4</small>
-                                                    </div>
-                                                    
+                                                <div class="col-md-12">
+                                                    {% if order and subscription_active %}
+                                                        <div class="card mb-4">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">Ваша подписка</h5>
+                                                                <p class="card-text">
+                                                                    Тип меню: {{ order.get_menu_type_display }}<br>
+                                                                    Срок: {{ order.duration }} мес.<br>
+                                                                    Включено: {{ order.get_selected_meals }}<br>
+                                                                    Персон: {{ order.persons }}<br> 
+                                                                    Аллергии: 
+                                                                    {% for allergy in order.allergies.all %}
+                                                                        {{ allergy.name }}{% if not forloop.last %}, {% endif %}
+                                                                    {% empty %}
+                                                                        Нет
+                                                                    {% endfor %}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <p>У вас нет активной подписки.</p>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mb-4" style="display: flex; align-items: right; color: rgb(37, 35, 35);">Ваше меню на сегодня</h1>
+                                        <h1 class="mb-4" id="today-menu" style="display: flex; align-items: right; color: rgb(37, 35, 35);">Ваше меню на сегодня</h1>
                                         {% for recipe in menu %}
-                                            {% for tag in recipe.tags.all %}
-                                                {% if tag.name in meal_tags %}
-                                                    <h3>{{tag.name}}</h3>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <div class="row py-5 border-bottom mb-4" style="margin-left: 2px;">
-                                                <div class="col-12 col-md-2">
-                                                    <a href="{% url 'recipe_detail' recipe.pk %}">
-                                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="img-fluid rounded shadow-sm" style="max-height: 300px; object-fit: cover; width: 100%;">
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 col-md-10">
-                                                    <h4 class="mt-2">
-                                                        <a href="{% url 'recipe_detail' recipe.pk %}" style="color: rgb(23, 23, 23); text-decoration: none;">
-                                                            {{ recipe.name }}
-                                                        </a>
-                                                    </h4>
-                                                    <p>{{ recipe.description }}</p>
-                                                    <div class="text-muted d-flex flex-column justify-content-between small">
-                                                        <span>Калории: {{recipe.total_calories|floatformat:0}} ккал.</span>
-                                                        <span>Цена продуктов: {{recipe.total_price|floatformat:0}} руб.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        {% for tag in recipe.tags.all %}
+                                            {% if tag.name in meal_tags %}
+                                                <h3>{{tag.name}}</h3>
+                                            {% endif %}
                                         {% endfor %}
+                                        <div class="row py-5 border-bottom mb-4" style="margin-left: 2px;">
+                                            <div class="col-12 col-md-2">
+                                                <a href="{% url 'recipe_detail' recipe.pk %}">
+                                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="img-fluid rounded shadow-sm" style="max-height: 300px; object-fit: cover; width: 100%;">
+                                                </a>
+                                            </div>
+                                            <div class="col-12 col-md-10">
+                                                <h4 class="mt-2">
+                                                    <a href="{% url 'recipe_detail' recipe.pk %}" style="color: rgb(23, 23, 23); text-decoration: none;">
+                                                        {{ recipe.name }}
+                                                    </a>
+                                                </h4>
+                                                <p>{{ recipe.description }}</p>
+                                                <div class="text-muted d-flex flex-column justify-content-between small mb-2">
+                                                    <span>Калории: {{recipe.total_calories|floatformat:0}} ккал.</span>
+                                                    <span>Цена продуктов: {{recipe.total_price|floatformat:0}} руб.</span>
+                                                </div>
+                                                {% if dailymenu.change_count > 0 %}
+                                                    <form method="post" action="{% url 'change_one_recipe' recipe.pk %}">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                            Поменять это блюдо
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                     </div>
                                 </div>
                             </div>
-                            
                     </div>
                 </div>
             </div>
