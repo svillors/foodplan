@@ -63,6 +63,7 @@ def lk_view(request):
     )
     final_recipes = []
     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+    meals = None
 
     def meal_index(recipe):
         tag_names = [tag.name for tag in recipe.tags.all()]
@@ -112,7 +113,8 @@ def lk_view(request):
         'user': user,
         'subscription_active': user.subscription_active if hasattr(user, 'subscription_active') else False,
         'subscription_end': user.subscription_end if hasattr(user, 'subscription_end') else None,
-        'menu': final_recipes
+        'menu': final_recipes,
+        'meal_tags': meal_tags
     }
     return render(request, 'lk.html', context)
 
