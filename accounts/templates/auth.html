@@ -18,7 +18,7 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
-                {% comment %} <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,11 +30,11 @@
                     <li class="nav-item nav-item__border">
                         <a class="nav-link active" aria-current="page" href="{% url 'index' %}#history">Отзывы</a>
                     </li>
-                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                    {% comment %} <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
                         <button class="btn btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</button>
                         <button class="btn btn-outline-success foodplan_green foodplan__border_green">Войти</button>
-                    </li>
-                </ul> {% endcomment %}
+                    </li> {% endcomment %}
+                </ul>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav ms-auto flex-row align-items-center">
                     <li class="nav-item d-flex align-items-center">
