@@ -27,7 +27,10 @@
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
                 <h3 class="text-secondary mt-2 me-2">Стоимость: 599₽</h3>
-                <button form="order" type="submit" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">Оплатить</button>
+                {% comment %} <button form="order" type="submit" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">Оплатить</button> {% endcomment %}
+                <a href="{% url 'subscribe' %}" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">
+                    Оплатить
+                </a>
             </div>
         </nav>
     </header>
@@ -220,7 +223,10 @@
                     {% csrf_token %}
                     
                 <div class="d-flex justify-content-center my-5">
-                    <button form="order" type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</button>
+                    {% comment %} <button form="order" type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</button> {% endcomment %}
+                    <a href="{% url 'subscribe' %}" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">
+                        Оплатить
+                    </a>
                 </div>
                 </form>
 
