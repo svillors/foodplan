@@ -11,13 +11,40 @@
     <title>План питания на неделю, меню, рецепты, список покупок. Классическое меню, безуглеводное меню</title>
 </head>
 <body>
-    <header>
+    {% comment %} <header>
         <nav class="navbar navbar-light fixed-top navbar__opacity">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
                 <button class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green" onclick="window.location.href={% url 'auth' %}">Войти</button>
+            </div>
+        </nav>
+    </header> {% endcomment %}
+    <header>
+        <nav class="navbar navbar-light fixed-top navbar__opacity">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
+                </a>
+                {% if user.is_authenticated %}
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'lk' %}" class="me-3 foodplan_green d-flex align-items-center">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% else %}
+                                <img src="{% static 'img/test_avatar.png' %}" alt="Аватар" width="40" height="40" class="rounded-circle me-2">
+                            {% endif %}
+                            {{ user.first_name|default:user.email }}
+                        </a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <button class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green" onclick="window.location.href='{% url 'auth' %}'">Войти</button>
+                {% endif %}
             </div>
         </nav>
     </header>

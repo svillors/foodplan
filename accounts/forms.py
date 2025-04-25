@@ -24,16 +24,14 @@ class CustomUserCreationForm(UserCreationForm):
                 "placeholder": "Фамилия"
             }),
         }
-
     password1 = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput(attrs={
             "class": "form-control",
             "id": "password",
-            "name": "password1"
+            "name": "password"
         })
     )
-
     password2 = forms.CharField(
         label="Подтверждение пароля",
         widget=forms.PasswordInput(attrs={
