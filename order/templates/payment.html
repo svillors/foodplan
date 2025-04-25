@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'payment' order.id %}">
+    {% csrf_token %}
+    <!-- Платежные данные -->
+    <button type="submit" class="btn btn-success">
+        Подтвердить оплату
+    </button>
+</form>

@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 from .forms import CustomUserCreationForm
 from recipes.models import DailyMenu, Recipe
+from order.models import Order
 
 
 def register_view(request):
@@ -59,6 +60,17 @@ def login_view(request):
 
 
 def lk_view(request):
+    user = request.user
+    try:
+        last_order = user.orders.latest('created_at')
+        meal_tags = []
+        if last_order.include_breakfast: meal_tags.append('завтрак')
+        if last_order.include_lunch: meal_tags.append('обед')
+        if last_order.include_dinner: meal_tags.append('ужин')
+        if last_order.include_dessert: meal_tags.append('десерт')
+    except Order.DoesNotExist:  # Теперь Order будет распознан
+        meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+        
     user = request.user
     date = now().date()
     user = request.user

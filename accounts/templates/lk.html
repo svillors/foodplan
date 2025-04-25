@@ -128,10 +128,18 @@
                                             {% endfor %}
                                         </div>
                                         {% endif %}
+                                        {% comment %} {% if order %}
+                                        <div class="alert alert-info">
+                                            <h4>Текущая подписка:</h4>
+                                            <p>Тип меню: {{ order.get_menu_type_display }}</p>
+                                            <p>Длительность: {{ order.duration }} месяцев</p>
+                                            <p>Количество персон: {{ order.persons }}</p>
+                                        </div>
+                                        {% endif %} {% endcomment %}
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="exampleInputEmail1" class="form-label">Имя</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
+                                                {% comment %} <small><a href="#" class="link-dark foodplan_green">изменить</a></small> {% endcomment %}
                                             </div>
                                         
                                             <input 
@@ -183,7 +191,7 @@
                                                         </div>
                                                     {% else %}
                                                         <div class="alert alert-danger">
-                                                            <a href="{% url 'subscribe' %}" class="btn btn-success">Активировать подписку</a>
+                                                            <a href="{% url 'order' %}" class="btn btn-success">Активировать подписку</a>
                                                         </div>
                                                     {% endif %}
                                                 </div>

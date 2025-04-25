@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Мои подписки - FoodPlan</title>
+</head>
+<section>
+    <div class="container">
+        <div class="card p-3 mb-5 foodplan__shadow">
+            <a href="{% url 'recipes:home' %}" class="link-secondary fw-light foodplan__backButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9%" height="9%" fill="currentColor" class="bi bi-arrow-left-circle"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
+            <h2 class="text-center"><strong>Мои подписки</strong></h2>
+        </div>
+
+        {% if active_subscriptions %}
+            {% for subscription in active_subscriptions %}
+            <div class="card p-4 mb-4 foodplan__shadow">
+                <div class="row">
+                    <div class="col-md-3 text-center">
+                        <img src="{% static 'img/menu_'|add:subscription.menu_type|add:'.png' %}" alt="{{ subscription.get_menu_type_display }}" 
+                             class="img-fluid mb-3" style="max-width: 200px;">
+                    </div>
+                    <div class="col-md-9">
+                        <h3 class="foodplan_green">{{ subscription.get_menu_type_display }} меню</h3>
+                        <p class="mb-3">Срок подписки: {{ subscription.get_duration_display }}</p>
+                        <p class="mb-3">Дата окончания: {{ subscription.end_date }}</p>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Параметры меню:</h5>
+                                <ul class="list-unstyled">
+                                    <li>{% if subscription.include_breakfast %}<span class="text-success">✓</span>{% else %}<span class="text-danger">✗</span>{% endif %} Завтраки</li>
+                                    <li>{% if subscription.include_lunch %}<span class="text-success">✓</span>{% else %}<span class="text-danger">✗</span>{% endif %} Обеды</li>
+                                    <li>{% if subscription.include_dinner %}<span class="text-success">✓</span>{% else %}<span class="text-danger">✗</span>{% endif %} Ужины</li>
+                                    <li>{% if subscription.include_dessert %}<span class="text-success">✓</span>{% else %}<span class="text-danger">✗</span>{% endif %} Десерты</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Количество персон:</h5>
+                                <p>{{ subscription.persons_count }}</p>
+                                
+                                <h5>Исключенные аллергены:</h5>
+                                <ul class="list-unstyled">
+                                    {% if subscription.exclude_fish %}<li><span class="text-danger">✗</span> Рыба и морепродукты</li>{% endif %}
+                                    {% if subscription.exclude_meat %}<li><span class="text-danger">✗</span> Мясо</li>{% endif %}
+                                    {% if subscription.exclude_grains %}<li><span class="text-danger">✗</span> Зерновые</li>{% endif %}
+                                    {% if subscription.exclude_honey %}<li><span class="text-danger">✗</span> Продукты пчеловодства</li>{% endif %}
+                                    {% if subscription.exclude_nuts %}<li><span class="text-danger">✗</span> Орехи и бобовые</li>{% endif %}
+                                    {% if subscription.exclude_dairy %}<li><span class="text-danger">✗</span> Молочные продукты</li>{% endif %}
+                                    {% if not subscription.exclude_fish and not subscription.exclude_meat and not subscription.exclude_grains and not subscription.exclude_honey and not subscription.exclude_nuts and not subscription.exclude_dairy %}
+                                    <li>Нет исключенных аллергенов</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'recipes:menu_by_type' menu_type=subscription.menu_type %}" class="btn btn-success">Перейти к меню</a>
+                            <a href="{% url 'subscriptions:create' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Изменить подписку</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="text-center mb-4">
+                <a href="{% url 'subscriptions:create' %}" class="btn btn-success">Оформить еще одну подписку</a>
+            </div>
+        {% else %}
+            <div class="card p-4 mb-4 foodplan__shadow">
+                <div class="text-center">
+                    <h3 class="text-muted mb-4">У вас еще нет активной подписки</h3>
+                    <p class="mb-4">Оформите подписку, чтобы получить доступ к меню и рецептам</p>
+                    <a href="{% url 'subscriptions:create' %}" class="btn btn-success">Оформить подписку</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% comment %} {% endblock %}  {% endcomment %}
