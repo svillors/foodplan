@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
     )
     prefers = models.ManyToManyField(
         'recipes.Tag',
-        verbose_name='Предпочтения',
+        verbose_name='Пред',
         blank=True,
     )
     avatar = models.ImageField(

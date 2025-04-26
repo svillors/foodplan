@@ -136,14 +136,27 @@
                                             <div class="row py-4 mb-5">
                                                 <div class="col-12">
                                                     {% if order %}
-                                                        <div class="alert alert-success">
-                                                            Подписка активна до: {{ subscription_end|date:"d.m.Y" }}
+                                                        <div class="alert alert-success d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <b>Подписка активна до: {{ subscription_end|date:"d.m.Y" }}</b>
+                                                            </div>
+                                                            <div>
+                                                                {% if can_change_order %}
+                                                                    <a href="{% url 'change_order' %}" class="btn btn-outline-success ms-2">Изменить подписку</a>
+                                                                {% endif %}
+                                                            </div>
                                                         </div>
                                                     {% else %}
-                                                        <div class="alert alert-danger">
-                                                            <a href="{% url 'order' %}" class="btn btn-success">Активировать подписку</a>
+                                                        <div class="alert alert-danger d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <b>У вас нет активной подписки</b>
+                                                            </div>
+                                                            <div>
+                                                                <a href="{% url 'create_order' %}" class="btn btn-outline-success ms-2">Активировать подписку</a>
+                                                            </div>
                                                         </div>
                                                     {% endif %}
+                                                </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     {% if order and subscription_active %}
@@ -165,7 +178,7 @@
                                                             </div>
                                                         </div>
                                                     {% else %}
-                                                        <p>У вас нет активной подписки.</p>
+                                                        {% comment %} <p>У вас нет активной подписки.</p> {% endcomment %}
                                                     {% endif %}
                                                 </div>
                                             </div>

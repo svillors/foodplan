@@ -8,12 +8,11 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     add_form = CustomUserCreationForm
 
-    list_display = ('email', 'first_name', 'last_name', 'is_active', 'subscription_active', 'subscription_end')
+    list_display = ('email', 'first_name', 'is_active', 'subscription_active', 'subscription_end')
 
     list_filter = ('is_staff', 'is_superuser', 'is_active')
-
     fieldsets = (
-        ('Персональная информация', {'fields': ('first_name', 'last_name', 'email', 'password')}),
+        ('Персональная информация', {'fields': ('first_name',  'email', 'password')}),
         ('Права доступа', {'fields': ('is_active', 'is_superuser')}),
         ('Подписка', {'fields': ('subscription_active', 'subscription_end', 'prefers')}),
     )
@@ -21,11 +20,11 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'first_name', 'last_name'),
+            'fields': ('email', 'password1', 'password2', 'first_name'),
         }),
     )
 
-    search_fields = ('email', 'first_name', 'last_name')
+    search_fields = ('email', 'first_name')
     ordering = ('email',)
 
 

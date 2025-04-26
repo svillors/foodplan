@@ -18,6 +18,11 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         related_name='orders'
     )
+    prefers = models.ManyToManyField(
+        'recipes.Tag',
+        verbose_name='Предпоч',
+        blank=True
+    )
     MENU_TYPES = [
         ('classic', 'Классическое'),
         ('low', 'Низкоуглеводное'),
@@ -48,10 +53,10 @@ class Order(models.Model):
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     is_paid = models.BooleanField('Оплачен', default=False)
     updated_at = models.DateTimeField('Дата изменения', auto_now=True) 
-    
+
     def get_menu(self):
         return f"Меню: {self.menu_type}, Персон: {self.persons}"
-    
+
     def get_selected_meals(self):
         meals = []
         if self.include_breakfast: 

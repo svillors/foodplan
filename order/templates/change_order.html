@@ -9,6 +9,15 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Foodplan 2021 - Меню на неделю FOODPLAN</title>
+    {% if form.errors %}
+<div class="alert alert-danger">
+    {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+            {{ error }}<br>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endif %}
 </head>
 <body>
     <header>
@@ -27,22 +36,14 @@
     <main style="margin-top: calc(2rem + 85px);">
         <section>
             <div class="container">
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}
-                            {{ error }}<br>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <h1><strong class="foodplan_green">1 шаг </strong>до первого меню</h1>
-                <h5 class="text-secondary mb-3">Вам будет доступно 4 типа меню: Классическое, Низкоуглеводное, Вегетарианское и Кето.</h5>
-                <form method="POST" action="{% url 'create_order' %}">
+                <h1><strong class="foodplan_green">Изменение подписки</strong></h1>
+                <h5 class="text-secondary mb-3">
+                    Вы можете изменить параметры вашей подписки. Новое меню будет сформировано с учетом новых предпочтений. 
+                    <p>4 типа меню: Классическое, Низкоуглеводное, Вегетарианское и Кето.</p>
+                </h5>
+                <form method="POST" action="">
                     {% csrf_token %}
-                    
                 <div class="row mb-5">
-                    
                     <div class="col-6 col-md-3">
                         
                         <label for="classic" class="position-relative" style="cursor: pointer;">
@@ -76,23 +77,9 @@
                         </label>
                     </div>
                 </div>
-                {% comment %} <h2><strong>Ваши предпочтения</strong></h2>
-                <div class="row mb-5">
-                    {% for tag in form.prefers.field.queryset %}
-                        <div class="col-6 col-md-3">
-                            <label class="position-relative" style="cursor: pointer;">
-                                <input type="checkbox"
-                                       name="prefers"
-                                       value="{{ tag.id }}"
-                                       class="foodplan_selected"
-                                       {% if tag.id|stringformat:"s" in form.prefers.value|stringformat:"s" %}checked{% endif %}>
-                                <img src="{% static 'order/img/menu_'|add:tag.name|lower|add:'.png' %}" alt="" class="w-100">
-                                <div class="img_selected"></div>
-                                <div class="text-center mt-2">{{ tag.name }}</div>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div> {% endcomment %}
+
+                <h2><strong>Выберите подходящий тариф</strong></h2>
+
                 <table class="table text-center text-truncate mb-5">
                     <tbody>
                         <tr>
@@ -146,21 +133,36 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="text-start">Предпочтения</th>
+                            <th scope="row" class="text-start">Кол-во персон</th>
                             <td>
-                                {% for checkbox in allerges_tags %}
-                                    <div class="form-check-input">
-                                        <label class="form-check-label" for="{{ checkbox.name }}">
-                                            {{ checkbox.name }}
-                                        </label>
-                                    </div>
-                                {% endfor %}
+                                <select name="{{ form.persons.name }}" id="{{ form.persons.id_for_label }}" class="form-select">
+                                    {% for val, text in form.persons.field.choices %}
+                                        <option value="{{ val }}" {% if form.persons.value == val|stringformat:"s" %}selected{% endif %}>{{ text }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Аллергии</th>
+                            <td>
+                                <div>
+                                    {% for checkbox in form.allergies %}
+                                        <div class="form-check">
+                                            {{ checkbox.tag }}
+                                            <label class="form-check-label" for="{{ checkbox.id_for_label }}">
+                                                {{ checkbox.choice_label }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center my-5">
-                    <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</button>
+                    <button type="submit" class="btn btn-primary">
+                        Сохранить изменения
+                    </button>
                 </div>
                 </form>
 

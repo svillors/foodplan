@@ -62,12 +62,14 @@ def login_view(request):
 def lk_view(request):
     user = request.user
     date = now().date()
-    
+
     # Получение последнего оплаченного заказа
     try:
         last_order = user.orders.filter(is_paid=True).latest('created_at')
+        can_change_order = True  # Разрешаем изменять, если есть оплаченный заказ
     except Order.DoesNotExist:
         last_order = None
+        can_change_order = False 
     
     # Формирование meal_tags на основе последнего заказа (если есть)
     if last_order:
@@ -147,6 +149,7 @@ def lk_view(request):
         'meal_tags': meal_tags,
         'dailymenu': dailymenu,
         'order': last_order,  # Передаем последний оплаченный заказ
+        'can_change_order': can_change_order,
     }
     return render(request, 'lk.html', context)
 
@@ -192,3 +195,5 @@ def activate_subscription(request):
 
 def subscribe(request):
     return render(request, 'subscription.html')
+
+
