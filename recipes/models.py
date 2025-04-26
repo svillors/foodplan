@@ -21,10 +21,12 @@ class Ingredient(models.Model):
         choices=UNIT_CHOICES
     )
     price_per_unit = models.FloatField(
-        'Цена на еденицу измерения'
+        'Цена на еденицу измерения',
+        help_text='цена рассчтывается за 1 кг/литр или же за 1 шт/упаков'
     )
     calories_per_unit = models.FloatField(
-        'Калории на еденицу измерения'
+        'Калории на еденицу измерения',
+        help_text='калории рассчтываются за 1 кг/литр или же за 1 шт/упаков'
     )
 
     def __str__(self):

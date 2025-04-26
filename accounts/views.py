@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -106,20 +108,32 @@ def lk_view(request):
     # Генерация меню
     if created:
         if subscription_active:
-            user_tags = user.prefers.all()
-            valid_meals = [tag.name for tag in user_tags if tag.name in meal_tags]
-            
+            user_tags_all = [tag.name for tag in user.prefers.all()]
+            user_tags = [tag for tag in user_tags_all if tag not in meal_tags]
+            valid_meals = [tag for tag in user_tags_all if tag in meal_tags]
+
             selected_recipes = []
             for meal in valid_meals or meal_tags:
-                recipe = (
+                recipes = (
                     Recipe.objects
                     .filter(tags__name=meal)
-                    .order_by('?')
-                    .first()
+                    .distinct()
                 )
+                filtered_recipes = []
+                for recipe in recipes:
+                    recipe_tag_names = list(
+                        recipe.tags.values_list('name', flat=True))
+
+                    if all(
+                        tag_name in recipe_tag_names for tag_name in user_tags
+                    ):
+                        filtered_recipes.append(recipe)
+
+                recipe = random.choice(filtered_recipes) if filtered_recipes else None
+
                 if recipe:
                     selected_recipes.append(recipe)
-            
+
             final_recipes = sorted(selected_recipes, key=meal_index)
             dailymenu.recipes.add(*final_recipes)
         else:
@@ -157,21 +171,30 @@ def lk_view(request):
 def change_recipe(request, pk):
     user = request.user
     date = now().date()
-    user_tags = user.prefers.all()
-    dailymenu = DailyMenu.objects.get(user=user, date=date)
     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
+    user_tags_all = [tag.name for tag in user.prefers.all()]
+    user_tags = [tag for tag in user_tags_all if tag not in meal_tags]
+    dailymenu = DailyMenu.objects.get(user=user, date=date)
     old_order = get_object_or_404(Recipe, pk=pk)
     reqiured_meal = [
         tag.name for tag in old_order.tags.all() if tag.name in meal_tags
     ].pop()
-    new_recipe = (
+    new_recipes = (
         Recipe.objects
-        .filter(tags__name=reqiured_meal, tags__in=user_tags)
+        .filter(tags__name=reqiured_meal)
         .exclude(pk=pk)
-        .order_by('?')
         .prefetch_related('tags')
-        .first()
     )
+    filtered_recipes = []
+    for recipe in new_recipes:
+        recipe_tag_names = list(
+            recipe.tags.values_list('name', flat=True))
+        if all(
+            tag_name in recipe_tag_names for tag_name in user_tags
+        ):
+            filtered_recipes.append(recipe)
+
+        new_recipe = random.choice(filtered_recipes) if filtered_recipes else None
     dailymenu.recipes.remove(old_order)
     dailymenu.recipes.add(new_recipe)
     dailymenu.change_count -= 1

@@ -36,8 +36,13 @@
                         <p>{{recipe.description}}</p>
                         <ul class="list-group list-group-flush mb-5">
                             {% for item in recipe.items.all %}
-                              <li class="list-group-item">{{item.ingredient.name}} {{item.quantity|floatformat:0}} {{item.ingredient.get_unit_display}}.</li>
+                              <li class="list-group-item">{{item.ingredient.name}} {{item.quantity}} {{item.ingredient.get_unit_display}}.</li>
                             {% endfor %}
+                            <li class="list-group-item">
+                                {% for tag in recipe.tags.all %}
+                                    <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+                                {% endfor %}
+                            </li>
                         </ul>
                         <h6>Общая калорийность: {{recipe.total_calories|floatformat:0}} ккал.</h6>
                         <h6>Общая цена: {{recipe.total_price|floatformat:0}} р.</h6>
