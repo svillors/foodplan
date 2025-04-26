@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .forms import OrderForm
-from .models import Order
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
+from .forms import OrderForm
+from .models import Order
+from recipes.models import DailyMenu
 
 
 @login_required
@@ -78,6 +80,11 @@ def payment_details(request):
         user.subscription_active = True
         user.subscription_end = timezone.now() + timezone.timedelta(days=30 * int(order.duration))
         user.save()
+
+        # удаление старого daily_menu (если есть)
+        date = timezone.now().date()
+        DailyMenu.objects.filter(user=user, date=date).delete()
+
         del request.session['order_data']
         messages.success(request, 'Оплата прошла успешно! Подписка активирована.')
         return redirect('lk')
