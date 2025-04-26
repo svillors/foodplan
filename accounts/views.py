@@ -111,10 +111,10 @@ def lk_view(request):
             for meal in valid_meals or meal_tags:
                 recipe = (
                     Recipe.objects
-                    .filter(tags__name=meal)
+                    .filter(tags__name=meal, tags__in=user_tags)
                     .order_by('?')
                     .first()
-                )
+                )[:1]
                 if recipe:
                     selected_recipes.append(recipe)
             

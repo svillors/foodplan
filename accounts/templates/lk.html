@@ -194,7 +194,7 @@
                                                     <span>Калории: {{recipe.total_calories|floatformat:0}} ккал.</span>
                                                     <span>Цена продуктов: {{recipe.total_price|floatformat:0}} руб.</span>
                                                 </div>
-                                                {% if dailymenu.change_count > 0 %}
+                                                {% if dailymenu.change_count > 0 and subscription_active %}
                                                     <form method="post" action="{% url 'change_one_recipe' recipe.pk %}">
                                                         {% csrf_token %}
                                                         <button type="submit" class="btn btn-outline-danger btn-sm">
