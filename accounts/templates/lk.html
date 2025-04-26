@@ -135,7 +135,7 @@
                                         <div class="col-10 col-md-10">
                                             <div class="row py-4 mb-5">
                                                 <div class="col-12">
-                                                    {% if subscription_active %}
+                                                    {% if order %}
                                                         <div class="alert alert-success">
                                                             Подписка активна до: {{ subscription_end|date:"d.m.Y" }}
                                                         </div>
@@ -172,11 +172,11 @@
                                         </div>
                                         <h1 class="mb-4" id="today-menu" style="display: flex; align-items: right; color: rgb(37, 35, 35);">Ваше меню на сегодня</h1>
                                         {% for recipe in menu %}
-                                        {% for tag in recipe.tags.all %}
-                                            {% if tag.name in meal_tags %}
-                                                <h3>{{tag.name}}</h3>
-                                            {% endif %}
-                                        {% endfor %}
+                                            {% for tag in recipe.tags.all %}
+                                                {% if tag.name in meal_tags %}
+                                                    <h3>{{tag.name}}</h3>
+                                                {% endif %}
+                                            {% endfor %}
                                         <div class="row py-5 border-bottom mb-4" style="margin-left: 2px;">
                                             <div class="col-12 col-md-2">
                                                 <a href="{% url 'recipe_detail' recipe.pk %}">
@@ -204,7 +204,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                    {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
