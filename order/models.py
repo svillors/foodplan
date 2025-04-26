@@ -42,7 +42,7 @@ class Order(models.Model):
     persons = models.PositiveSmallIntegerField('Количество персон', default=1)
     allergies = models.ManyToManyField(
         Allergy,
-        verbose_name='Аллергии',
+        verbose_name='Предпочтения',
         blank=True
     )
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
