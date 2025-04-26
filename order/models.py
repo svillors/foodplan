@@ -33,6 +33,18 @@ class Order(models.Model):
         blank=True
     )
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    STATUS_CHOICES = [
+        ('created', 'Создан'),
+        ('paid', 'Оплачен'),
+        ('cancelled', 'Отменён'),
+    ]
+    status = models.CharField(
+        'Статус',
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='created'
+    )
+    subscription = models.ForeignKey('subscriptions.Subscription', on_delete=models.CASCADE, null=True, blank=True)
     is_paid = models.BooleanField('Оплачен', default=False)
 
 

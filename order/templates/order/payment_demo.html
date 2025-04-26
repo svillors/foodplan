@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Демо оплаты - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="card p-4 mb-4 foodplan__shadow">
+            <h2 class="mb-4 text-center">Демонстрационный режим оплаты</h2>
+            
+            <div class="alert alert-info">
+                <p>Это демонстрационный режим оплаты, который используется в разработке без подключения к ЮКасса.</p>
+                <p>В реальном приложении здесь бы отображалась форма оплаты ЮКасса.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="mb-0">Информация о заказе</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Заказ:</strong> #{{ order.id }}</p>
+                            <p><strong>Тип меню:</strong> {{ order.subscription.get_menu_type_display }}</p>
+                            <p><strong>Сумма:</strong> {{ amount }} ₽</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Тестовые карты для оплаты</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Успешная оплата:</strong></p>
+                            <ul>
+                                <li>Номер: 1111 1111 1111 1026</li>
+                                <li>Срок действия: 12/24</li>
+                                <li>CVC: 000</li>
+                            </ul>
+                            <p><strong>Неуспешная оплата:</strong></p>
+                            <ul>
+                                <li>Номер: 5555 5555 5555 4444</li>
+                                <li>Срок действия: 12/24</li>
+                                <li>CVC: 000</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <form method="post" action="{% url 'orders:payment_success' order.id %}">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button type="submit" class="btn btn-success btn-lg">Оплатить (успешно)</button>
+                        <a href="{% url 'orders:payment_cancel' order.id %}" class="btn btn-danger btn-lg">Отменить платеж</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

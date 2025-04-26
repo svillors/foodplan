@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FoodPlan - Планирование питания{% endblock %}
+
+{% block content %}
+<section class="foodplan__head_bg">
+    <div class="container">
+        <div class="d-flex w-50 py-lg-5 foodplan__head">
+            <div class="d-flex flex-column justify-content-start foodplan__head_desc">
+                <h1 class="mb-5"><b>Вдохновляем готовить дома!</b></h1>
+                <h4>Мы планируем домашнее меню.<br>
+                    Вы получаете рецепты + список продуктов.<br>
+                    Больше не нужно думать, что готовить.</h4>
+                <div class="d-block mt-3">
+                    <a href="{% url 'subscriptions:create' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Хочу попробовать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container my-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-6 col-lg-3">
+                <div class="card mb-1 foodplan__card_borderless">
+                    <img src="{% static 'img/circle1.png' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Меню на неделю</b></h5>
+                        <p class="card-text">Итальянская паста, котлеты с пюре или овощное карри - решать вам!
+                        Подстраивайте меню под свои желания.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card mb-1 foodplan__card_borderless">
+                    <img src="{% static 'img/circle2.png' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Удобный список продуктов</b></h5>
+                        <p class="card-text">С четким списком вы не возьмете лишнего, будете тратить меньше и сможете чаще покупать лосось и морепродукты.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="card mb-1 foodplan__card_borderless">
+                    <img src="{% static 'img/circle3.png' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>Доставка продуктов</b></h5>
+                        <p class="card-text">Заказывайте доставку продуктов по вашему списку в 1 клик. Все ингредиенты будут доставлены к вам домой.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container mb-5">
+        <h1 class="text-center my-4"><b>Выберите тип меню</b></h1>
+        <div class="row">
+            {% for key, name in menu_types.items %}
+            <div class="col-6 col-md-3 mb-4">
+                <a href="{% url 'recipes:menu_by_type' menu_type=key %}" class="text-decoration-none">
+                    <div class="card h-100">
+                        <img src="{% static 'img/menu_'|add:key|add:'.png' %}" class="card-img-top" alt="{{ name }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title foodplan_green">{{ name }}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-12 col-sm-4">
+                <div class="foodplan__creator rounded-pill" style="height: 300px;"></div>
+                <h5 class="text-center">Марина Амельченко</h5>
+                <h6 class="text-center">Основатель Foodplan</h6>
+            </div>
+            <div class="col-12 col-sm-8">
+                <h1 class="mb-4">,,</h1>
+                <h4>Каждую неделю мы создаем меню с любовью и заботой. Поэтому нам доверяют более 30 000 семей.</h4>
+                <h4>Начните путешествие в мир новых вкусов с нами.</h4>
+                <h1 style="text-align: end;">,,</h1>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

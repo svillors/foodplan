@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+<h1 style="color:red;">ТЕСТ ПОДПИСКИ</h1>
+{% block title %}Выбор подписки - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1><strong class="foodplan_green">1 шаг </strong>до первого меню</h1>
+        <h5 class="text-secondary mb-3">Вам будет доступно 4 типа меню: Классическое, Низкоуглеводное, Вегетарианское и Кето.</h5>
+        
+        <form method="post" class="mb-5">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            {{ field.label }}: {{ error }}
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="row mb-5">
+                <h2><strong>Выберите тип меню</strong></h2>
+                <div class="row">
+                    <div class="col-6 col-md-3">
+                        <label for="id_menu_type_0" class="position-relative" style="cursor: pointer;">
+                            <img src="{% static 'img/menu_classic.png' %}" alt="Классическое" class="w-100">
+                            <input type="radio" name="menu_type" id="id_menu_type_0" value="classic" class="foodplan_selected d-none" {% if form.menu_type.value == 'classic' %}checked{% endif %}>
+                            <div class="img_selected" id="img1"></div>
+                        </label>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="id_menu_type_1" class="position-relative" style="cursor: pointer;">
+                            <img src="{% static 'img/menu_low_carb.png' %}" alt="Низкоуглеводное" class="w-100">
+                            <input type="radio" name="menu_type" id="id_menu_type_1" value="low" class="foodplan_selected d-none" {% if form.menu_type.value == 'low' %}checked{% endif %}>
+                            <div class="img_selected" id="img2"></div>
+                        </label>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="id_menu_type_2" class="position-relative" style="cursor: pointer;">
+                            <img src="{% static 'img/menu_vegetarian.png' %}" alt="Вегетарианское" class="w-100">
+                            <input type="radio" name="menu_type" id="id_menu_type_2" value="veg" class="foodplan_selected d-none" {% if form.menu_type.value == 'veg' %}checked{% endif %}>
+                            <div class="img_selected" id="img3"></div>
+                        </label>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="id_menu_type_3" class="position-relative" style="cursor: pointer;">
+                            <img src="{% static 'img/menu_keto.png' %}" alt="Кето" class="w-100">
+                            <input type="radio" name="menu_type" id="id_menu_type_3" value="keto" class="foodplan_selected d-none" {% if form.menu_type.value == 'keto' %}checked{% endif %}>
+                            <div class="img_selected" id="img4"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <h2><strong>Выберите подходящий тариф</strong></h2>
+            <table class="table text-center text-truncate mb-5">
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-start">Срок</th>
+                        <td>
+                            {{ form.duration }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Завтраки</th>
+                        <td>
+                            {{ form.include_breakfast }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Обеды</th>
+                        <td>
+                            {{ form.include_lunch }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Ужины</th>
+                        <td>
+                            {{ form.include_dinner }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Десерты</th>
+                        <td>
+                            {{ form.include_dessert }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Кол-во персон</th>
+                        <td>
+                            {{ form.persons_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Аллергии</th>
+                        <td>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_fish }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_fish.id_for_label }}">
+                                    Рыба и морепродукты
+                                </label>
+                            </div>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_meat }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_meat.id_for_label }}">
+                                    Мясо
+                                </label>
+                            </div>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_grains }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_grains.id_for_label }}">
+                                    Зерновые
+                                </label>
+                            </div>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_honey }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_honey.id_for_label }}">
+                                    Продукты пчеловодства
+                                </label>
+                            </div>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_nuts }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_nuts.id_for_label }}">
+                                    Орехи и бобовые
+                                </label>
+                            </div>
+                            <div class="form-check d-flex justify-content-start">
+                                {{ form.exclude_dairy }}
+                                <label class="form-check-label ms-2" for="{{ form.exclude_dairy.id_for_label }}">
+                                    Молочные продукты
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-center my-5">
+                <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Перейти к оплате</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавляем классы для стилизации элементов формы
+        const selects = document.querySelectorAll('select');
+        selects.forEach(select => {
+            select.classList.add('form-select');
+        });
+        
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.classList.add('form-check-input', 'foodplan_checked-green');
+        });
+    });
+</script>
+{% endblock %} 

@@ -186,62 +186,32 @@
                                             <div class="row py-4 mb-5">
                                                 <div class="col-12">
                                                     {% if subscription_active %}
-                                                        <div class="alert alert-success">
+                                                        <div class="alert alert-success mb-3">
                                                             Подписка активна до: {{ subscription_end|date:"d.m.Y" }}
                                                         </div>
+                                                        <h3 class="mb-4">Ваше меню на сегодня</h3>
+                                                        {% if menu %}
+                                                            <ul class="list-group mb-4">
+                                                                {% for recipe in menu %}
+                                                                    <li class="list-group-item">
+                                                                        <b>{{ recipe.name }}</b><br>
+                                                                        {{ recipe.description|truncatewords:20 }}
+                                                                        {# Можно добавить калории, картинку и т.д. #}
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% else %}
+                                                            <div class="alert alert-info">Меню пока не сформировано.</div>
+                                                        {% endif %}
                                                     {% else %}
-                                                        <div class="alert alert-danger">
-                                                            <a href="{% url 'order' %}" class="btn btn-success">Активировать подписку</a>
+                                                        <div class="alert alert-warning mb-3">
+                                                            У вас нет активной подписки.
                                                         </div>
+                                                        <a href="{% url 'subscriptions:create' %}" class="btn btn-success">Оформить подписку</a>
                                                     {% endif %}
-                                                </div>
-                                                <div class="col-md-12 col-lg-9">
-                                                    <h5>что-то сюда вкруитить надо</h5>
-                                                </div>
-                                                <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Персоны: </small><small>3</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Аллергии: </small><small>нет</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Калории: </small><small>1400</small>
-                                                    </div>
-                                                    <div class="d-flex flex-row justify-content-between">
-                                                        <small>Кол-во приёмов пищи: </small><small>4</small>
-                                                    </div>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mb-4" style="display: flex; align-items: right; color: rgb(37, 35, 35);">Ваше меню на сегодня</h1>
-                                        {% for recipe in menu %}
-                                            {% for tag in recipe.tags.all %}
-                                                {% if tag.name in meal_tags %}
-                                                    <h3>{{tag.name}}</h3>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <div class="row py-5 border-bottom mb-4" style="margin-left: 2px;">
-                                                <div class="col-12 col-md-2">
-                                                    <a href="{% url 'recipe_detail' recipe.pk %}">
-                                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="img-fluid rounded shadow-sm" style="max-height: 300px; object-fit: cover; width: 100%;">
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 col-md-10">
-                                                    <h4 class="mt-2">
-                                                        <a href="{% url 'recipe_detail' recipe.pk %}" style="color: rgb(23, 23, 23); text-decoration: none;">
-                                                            {{ recipe.name }}
-                                                        </a>
-                                                    </h4>
-                                                    <p>{{ recipe.description }}</p>
-                                                    <div class="text-muted d-flex flex-column justify-content-between small">
-                                                        <span>Калории: {{recipe.total_calories|floatformat:0}} ккал.</span>
-                                                        <span>Цена продуктов: {{recipe.total_price|floatformat:0}} руб.</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>

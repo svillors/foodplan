@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ recipe.title }} - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="card p-3 mb-5 foodplan__shadow">
+            <a href="javascript:history.back()" class="link-secondary fw-light foodplan__backButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9%" height="9%" fill="currentColor" class="bi bi-arrow-left-circle"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
+            <h2 class="text-center"><strong>{{ recipe.title }}</strong></h2>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4 mb-md-0">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="img-fluid rounded foodplan__shadow">
+                {% else %}
+                    <div class="bg-light text-center p-5 rounded foodplan__shadow">
+                        <span class="text-muted fs-4">Нет изображения</span>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4 h-100 foodplan__shadow">
+                    <h3 class="foodplan_green mb-3">Информация о блюде</h3>
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between">
+                            <span>Категория:</span>
+                            <span class="fw-bold">{{ recipe.get_category_display }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Тип меню:</span>
+                            <span class="fw-bold">{{ recipe.get_menu_type_display }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Время приготовления:</span>
+                            <span class="fw-bold">{{ recipe.cooking_time }} мин</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Калорийность:</span>
+                            <span class="fw-bold">{{ recipe.calories }} ккал</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mb-3">Описание</h4>
+                    <p>{{ recipe.description }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card p-4 h-100 foodplan__shadow">
+                    <h3 class="foodplan_green mb-3">Ингредиенты</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for ingredient in recipe.recipeingredient_set.all %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0">
+                                <span>{{ ingredient.ingredient.name }}</span>
+                                <span class="fw-bold">{{ ingredient.amount }} {{ ingredient.ingredient.unit }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item border-0 px-0">
+                                <span class="text-muted">Список ингредиентов не указан</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-4 h-100 foodplan__shadow">
+                    <h3 class="foodplan_green mb-3">Инструкция по приготовлению</h3>
+                    <div class="mb-3">
+                        {{ recipe.instructions|linebreaks }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if user.is_authenticated %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-5">
+                <button type="button" class="btn btn-outline-success foodplan_green foodplan__border_green">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart me-2" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                    Добавить в избранное
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} 

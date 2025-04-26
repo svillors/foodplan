@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}FoodPlan - Меню на неделю{% endblock %}</title>
+</head>
+<body>
+<!-- Toast уведомление о выходе -->
+<div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999;">
+  <div id="logoutToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" style="font-size: 1.1em;">
+        <b>Вы вышли из учетной записи!</b>
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+    </div>
+  </div>
+</div>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'recipes:home' %}">
+                <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="FoodPlan">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse1">
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'subscriptions:my' %}" class="btn shadow-none btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
+                        <a href="{% url 'lk' %}" class="btn shadow-none btn-outline-success me-2 foodplan_green foodplan__border_green">Профиль</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Выйти</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'subscriptions:create' %}" class="btn shadow-none btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
+                        <a href="{% url 'auth' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Войти</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<main style="margin-top: calc(2rem + 85px);">
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+<footer class="footer py-4 mt-5" style="border-top: 1px solid lightgray;">
+    <div class="container d-flex flex-row justify-content-between mb-2">
+        <a href="https://vk.com/devmanorg">
+            <img src="{% static 'img/vk.png' %}" height="40" width="auto" alt="">
+        </a>
+        <div>
+            <a href="{% url 'recipes:recipe_list' %}?menu_type=classic" class="link-dark mx-1" style="text-decoration: none;"><b>Виды меню</b></a>
+            <a href="#" class="link-dark mx-1" style="text-decoration: none;"><b>Блог</b></a>
+            <a href="#" class="link-dark mx-1" style="text-decoration: none;"><b>Контакты</b></a>
+        </div>
+    </div>
+    <div class="container">
+        <h6 class="link-secondary text-center"><a href="{% url 'recipes:privacy_policy' %}" class="link-secondary me-2">Политика конфиденциальности</a><a href="{% url 'recipes:terms_of_use' %}" class="link-secondary">Пользовательское соглашение</a></h6>
+        <h6 class="link-secondary text-center">© Devman 2022-{% now "Y" %}. All right reserved.</h6>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.location.search.indexOf('logged_out=1') !== -1) {
+            var toastEl = document.getElementById('logoutToast');
+            var toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+            toast.show();
+            // Удаляем параметр из URL, чтобы не показывать окно при обновлении
+            if (window.history.replaceState) {
+                const url = new URL(window.location);
+                url.searchParams.delete('logged_out');
+                window.history.replaceState({}, document.title, url.pathname + url.search);
+            }
+        }
+    });
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

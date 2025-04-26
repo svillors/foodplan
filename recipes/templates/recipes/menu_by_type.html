@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ menu_type_display }} меню - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="card p-3 mb-5 foodplan__shadow">
+            <a href="{% url 'recipes:home' %}" class="link-secondary fw-light foodplan__backButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9%" height="9%" fill="currentColor" class="bi bi-arrow-left-circle"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
+            <div class="d-flex align-items-center">
+                <div class="me-4">
+                    <img src="{% static 'img/menu_'|add:menu_type|add:'.png' %}" alt="{{ menu_type_display }}" style="max-width: 100px;">
+                </div>
+                <div>
+                    <h2 class="mb-3"><strong>{{ menu_type_display }} меню</strong></h2>
+                    <p class="text-muted">Рецепты, подобранные по принципам {{ menu_type_display|lower }} питания</p>
+                </div>
+            </div>
+        </div>
+        
+        {% if is_demo %}
+            <div class="alert alert-info mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Демо-режим</h5>
+                        <p class="mb-0">
+                            Вы видите ограниченную версию меню. Для доступа ко всем рецептам 
+                            <a href="{% url 'subscriptions:create' %}" class="alert-link">оформите подписку</a> 
+                            на {{ menu_type_display|lower }} меню.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% elif has_access %}
+            <div class="alert alert-success mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">У вас есть доступ к этому меню</h5>
+                        <p class="mb-0">
+                            Ваша подписка активна до {{ subscription_info.end_date }}. 
+                            Вы можете просматривать все рецепты и формировать списки покупок.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card p-3 foodplan__shadow">
+                    <h3 class="mb-3 foodplan_green">Меню на неделю</h3>
+                    <div class="mb-4">
+                        <div class="btn-group w-100" role="group">
+                            <button type="button" class="btn btn-outline-success active" data-category="all">Все</button>
+                            <button type="button" class="btn btn-outline-success" data-category="breakfast">Завтраки</button>
+                            <button type="button" class="btn btn-outline-success" data-category="lunch">Обеды</button>
+                            <button type="button" class="btn btn-outline-success" data-category="dinner">Ужины</button>
+                            <button type="button" class="btn btn-outline-success" data-category="dessert">Десерты</button>
+                        </div>
+                    </div>
+                    
+                    {% if recipes %}
+                        <div class="row">
+                            {% for recipe in recipes %}
+                                <div class="col-md-6 col-lg-4 mb-4 recipe-item" data-category="{{ recipe.category }}">
+                                    <div class="card h-100">
+                                        {% if recipe.image %}
+                                            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                                        {% else %}
+                                            <div class="bg-light text-center p-5">
+                                                <span class="text-muted">Нет изображения</span>
+                                            </div>
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ recipe.title }}</h5>
+                                            <p class="card-text text-muted">
+                                                <small>
+                                                    {{ recipe.get_category_display }} • 
+                                                    {{ recipe.cooking_time }} мин • 
+                                                    {{ recipe.calories }} ккал
+                                                </small>
+                                            </p>
+                                            <p class="card-text">{{ recipe.description|truncatechars:100 }}</p>
+                                        </div>
+                                        <div class="card-footer bg-white">
+                                            <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="btn btn-outline-success btn-sm w-100">Подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% if is_demo %}
+                            <div class="mt-4 text-center">
+                                <div class="alert alert-light">
+                                    <p>Это лишь малая часть доступных рецептов {{ menu_type_display|lower }} меню.</p>
+                                    <a href="{% url 'subscriptions:create' %}" class="btn btn-success mt-2">Оформить подписку</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-info">
+                            <p class="mb-0">В этом меню пока нет рецептов. Рецепты будут добавлены в ближайшее время.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        {% if user.is_authenticated and has_access %}
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card p-3 foodplan__shadow">
+                        <h3 class="mb-3 foodplan_green">Список покупок</h3>
+                        <p>Список покупок формируется на основе выбранных блюд из вашего меню.</p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <button type="button" class="btn btn-success">Сформировать список покупок</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% elif not user.is_authenticated %}
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card p-3 foodplan__shadow">
+                        <h3 class="mb-3 foodplan_green">Хотите больше возможностей?</h3>
+                        <p>Зарегистрируйтесь или войдите в свой аккаунт, чтобы получить доступ к дополнительным функциям:</p>
+                        <ul>
+                            <li>Персональное меню на неделю</li>
+                            <li>Автоматический список покупок</li>
+                            <li>Сохранение любимых рецептов</li>
+                        </ul>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <a href="{% url 'users:login' %}" class="btn btn-success me-2">Войти</a>
+                            <a href="{% url 'users:register' %}" class="btn btn-outline-success">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% elif user.is_authenticated and not has_access %}
+            {% if not subscription_active %}
+                <div class="card p-4 mt-4">
+                    <h3 class="foodplan_green">Получите полный доступ к меню</h3>
+                    <p>Оформите подписку, чтобы получить доступ ко всем рецептам и дополнительным функциям:</p>
+                    <ul>
+                        <li>Все рецепты меню</li>
+                        <li>Автоматический список покупок</li>
+                        <li>Персональные рекомендации</li>
+                    </ul>
+                    <a href="{% url 'subscriptions:create' %}" class="btn btn-success">Оформить подписку</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.btn-group button');
+        const recipeItems = document.querySelectorAll('.recipe-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Убираем активный класс у всех кнопок
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Добавляем активный класс текущей кнопке
+                this.classList.add('active');
+                
+                // Получаем выбранную категорию
+                const category = this.getAttribute('data-category');
+                
+                // Фильтруем рецепты
+                recipeItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %} 

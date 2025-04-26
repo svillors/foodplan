@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -8,6 +8,7 @@ from django.utils.timezone import now
 from .forms import CustomUserCreationForm
 from recipes.models import DailyMenu, Recipe
 from order.models import Order
+from subscriptions.models import Subscription
 
 
 def register_view(request):
@@ -59,61 +60,33 @@ def login_view(request):
     return render(request, 'auth.html')
 
 
+@login_required
 def lk_view(request):
     user = request.user
-    try:
-        last_order = user.orders.latest('created_at')
-        meal_tags = []
-        if last_order.include_breakfast: meal_tags.append('завтрак')
-        if last_order.include_lunch: meal_tags.append('обед')
-        if last_order.include_dinner: meal_tags.append('ужин')
-        if last_order.include_dessert: meal_tags.append('десерт')
-    except Order.DoesNotExist:  # Теперь Order будет распознан
-        meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
-        
-    user = request.user
-    date = now().date()
-    user = request.user
-    dailymenu, created = DailyMenu.objects.get_or_create(
+
+    # Ищем активную подписку
+    active_subscription = Subscription.objects.filter(
         user=user,
-        date=date
-    )
+        is_active=True,
+        end_date__gte=timezone.now().date()
+    ).order_by('-end_date').first()
+
+    subscription_active = bool(active_subscription)
+    subscription_end = active_subscription.end_date if active_subscription else None
+
+    # Формируем меню только если подписка активна
     final_recipes = []
     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
-    meals = None
-
-    def meal_index(recipe):
-        tag_names = [tag.name for tag in recipe.tags.all()]
-        for i, meal in enumerate(meal_tags):
-            if meal in tag_names:
-                return i
-        return 999
-
-    if created:
-        if user.subscription_active:
-            user_tags = user.prefers.all()
-
-            meals = [
-                tag for tag in user.prefers.all() if tag.name in meal_tags
-            ]
-            selected_recipes = []
-            for meal in meals:
-                recipe = (
-                    Recipe.objects
-                    .filter(tags__name=meal, tags__in=user_tags)
-                    .order_by('?')
-                    .prefetch_related('tags')
-                    .first()
-                )
-                if recipe:
-                    selected_recipes.append(recipe)
-            final_recipes = sorted(selected_recipes, key=meal_index)
-            dailymenu.recipes.add(*final_recipes)
-        else:
-            final_recipes = Recipe.objects.order_by('?')[:1]
-            dailymenu.recipes.add(*final_recipes)
-    else:
-        final_recipes = sorted(dailymenu.recipes.all(), key=meal_index)
+    if subscription_active:
+        # Здесь твоя логика формирования меню для пользователя
+        # Например, на сегодня:
+        date = timezone.now().date()
+        dailymenu, created = DailyMenu.objects.get_or_create(user=user, date=date)
+        if created or not dailymenu.recipes.exists():
+            # ... твоя логика подбора рецептов ...
+            pass
+        final_recipes = dailymenu.recipes.all()
+    # Если подписки нет — меню пустое
 
     if request.method == 'POST':
         new_first_name = request.POST.get('first_name')
@@ -123,13 +96,12 @@ def lk_view(request):
             messages.success(request, 'Данные успешно обновлены!')
         except Exception as e:
             messages.error(request, f'Ошибка: {str(e)}')
-
         return redirect('lk')
 
     context = {
         'user': user,
-        'subscription_active': user.subscription_active if hasattr(user, 'subscription_active') else False,
-        'subscription_end': user.subscription_end if hasattr(user, 'subscription_end') else None,
+        'subscription_active': subscription_active,
+        'subscription_end': subscription_end,
         'menu': final_recipes,
         'meal_tags': meal_tags
     }
@@ -148,3 +120,8 @@ def activate_subscription(request):
 
 def subscribe(request):
     return render(request, 'subscription.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/?logged_out=1')

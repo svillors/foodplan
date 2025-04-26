@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Оплата заказа - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <h1><strong class="foodplan_green">Заказ #{{ order.id }}</strong></h1>
+        
+        <div class="card p-4 mb-4 foodplan__shadow">
+            <h3 class="mb-3">Информация о подписке</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Тип меню:</strong> {{ order.subscription.get_menu_type_display }}</p>
+                    <p><strong>Срок подписки:</strong> {{ order.subscription.get_duration_display }}</p>
+                    <p><strong>Количество персон:</strong> {{ order.subscription.persons_count }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Приемы пищи:</strong>
+                        {% if order.subscription.include_breakfast %}Завтраки, {% endif %}
+                        {% if order.subscription.include_lunch %}Обеды, {% endif %}
+                        {% if order.subscription.include_dinner %}Ужины, {% endif %}
+                        {% if order.subscription.include_dessert %}Десерты{% endif %}
+                    </p>
+                    <p><strong>Исключенные аллергены:</strong>
+                        {% if order.subscription.exclude_fish %}Рыба и морепродукты, {% endif %}
+                        {% if order.subscription.exclude_meat %}Мясо, {% endif %}
+                        {% if order.subscription.exclude_grains %}Зерновые, {% endif %}
+                        {% if order.subscription.exclude_honey %}Продукты пчеловодства, {% endif %}
+                        {% if order.subscription.exclude_nuts %}Орехи и бобовые, {% endif %}
+                        {% if order.subscription.exclude_dairy %}Молочные продукты{% endif %}
+                        {% if not order.subscription.exclude_fish and not order.subscription.exclude_meat and not order.subscription.exclude_grains and not order.subscription.exclude_honey and not order.subscription.exclude_nuts and not order.subscription.exclude_dairy %}Нет{% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card p-4 mb-4 foodplan__shadow">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Сумма к оплате:</h3>
+                <h2 class="foodplan_green mb-0">{{ total }} ₽</h2>
+            </div>
+        </div>
+        
+        <form class="card d-flex flex-row align-items-baseline mb-5 p-3 foodplan__bg_grey" id="promo-form">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order.id }}">
+            <label for="promoCode" class="form-label me-2">Промокод</label>
+            <input type="text" class="form-control me-2" id="promoCode" name="code">
+            <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Применить</button>
+        </form>
+        
+        <div class="d-flex justify-content-center my-5">
+            <a href="{% url 'orders:payment_demo' order.id %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</a>
+        </div>
+    </div>
+</section>
+
+<!-- Модальное окно Bootstrap для выхода -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <h5 class="modal-title" id="logoutModalLabel" style="color: #fff;">Успешный выход</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body text-center">
+        <span style="color: #198754; font-size: 1.2em;">
+          Вы вышли из учетной записи
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ок</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const promoForm = document.getElementById('promo-form');
+        
+        promoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(promoForm);
+            
+            fetch('{% url "orders:apply_promo_code" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Обновляем сумму заказа на странице
+                    const amountElement = document.querySelector('.foodplan_green.mb-0');
+                    amountElement.textContent = data.new_amount + ' ₽';
+                    
+                    // Показываем сообщение об успехе
+                    alert('Промокод применен! Скидка: ' + data.discount + '%');
+                } else {
+                    // Показываем сообщение об ошибке
+                    alert('Ошибка: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при применении промокода.');
+            });
+        });
+
+        // Проверяем наличие параметра logged_out в URL
+        if (window.location.search.indexOf('logged_out=1') !== -1) {
+            var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+            logoutModal.show();
+            // Удаляем параметр из URL, чтобы не показывать окно при обновлении
+            if (window.history.replaceState) {
+                const url = new URL(window.location);
+                url.searchParams.delete('logged_out');
+                window.history.replaceState({}, document.title, url.pathname + url.search);
+            }
+        }
+    });
+</script>
+{% endblock %} 

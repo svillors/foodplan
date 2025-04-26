@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Рецепты - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="card p-3 mb-5 foodplan__shadow">
+            <a href="{% url 'recipes:home' %}" class="link-secondary fw-light foodplan__backButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="9%" height="9%" fill="currentColor" class="bi bi-arrow-left-circle"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg>
+            </a>
+            <h2 class="text-center"><strong>Рецепты</strong></h2>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card p-3 foodplan__shadow">
+                    <form method="get" action="{% url 'recipes:recipe_list' %}">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label for="menu_type" class="form-label">Тип меню</label>
+                                <select name="menu_type" id="menu_type" class="form-select">
+                                    <option value="">Все типы</option>
+                                    <option value="classic" {% if request.GET.menu_type == 'classic' %}selected{% endif %}>Классическое</option>
+                                    <option value="low_carb" {% if request.GET.menu_type == 'low_carb' %}selected{% endif %}>Низкоуглеводное</option>
+                                    <option value="vegetarian" {% if request.GET.menu_type == 'vegetarian' %}selected{% endif %}>Вегетарианское</option>
+                                    <option value="keto" {% if request.GET.menu_type == 'keto' %}selected{% endif %}>Кето</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="category" class="form-label">Категория</label>
+                                <select name="category" id="category" class="form-select">
+                                    <option value="">Все категории</option>
+                                    <option value="breakfast" {% if request.GET.category == 'breakfast' %}selected{% endif %}>Завтрак</option>
+                                    <option value="lunch" {% if request.GET.category == 'lunch' %}selected{% endif %}>Обед</option>
+                                    <option value="dinner" {% if request.GET.category == 'dinner' %}selected{% endif %}>Ужин</option>
+                                    <option value="dessert" {% if request.GET.category == 'dessert' %}selected{% endif %}>Десерт</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success">Применить фильтры</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 foodplan__shadow">
+                        {% if recipe.image %}
+                            <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }}">
+                        {% else %}
+                            <div class="bg-light text-center p-5">
+                                <span class="text-muted">Нет изображения</span>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title foodplan_green">{{ recipe.title }}</h5>
+                            <p class="card-text text-muted mb-2">
+                                <small>{{ recipe.get_menu_type_display }} • {{ recipe.get_category_display }}</small>
+                            </p>
+                            <p class="card-text text-muted mb-3">
+                                <small>{{ recipe.cooking_time }} мин • {{ recipe.calories }} ккал</small>
+                            </p>
+                            <p class="card-text">{{ recipe.description|truncatechars:100 }}</p>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a href="{% url 'recipes:recipe_detail' recipe.id %}" class="btn btn-outline-success foodplan_green foodplan__border_green w-100">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <p class="mb-0">По выбранным фильтрам рецепты не найдены. Пожалуйста, измените параметры поиска.</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} 

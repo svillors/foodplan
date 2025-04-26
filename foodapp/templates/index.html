@@ -37,6 +37,7 @@
                             {% endif %}
                             {{ user.first_name|default:user.email }}
                         </a>
+                        <a href="{% url 'subscriptions:entry' %}" class="btn btn-outline-primary shadow-none me-2">Подписка</a>
                         <form action="{% url 'logout' %}" method="post" class="d-inline">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>

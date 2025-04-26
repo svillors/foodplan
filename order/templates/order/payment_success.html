@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Оплата выполнена - FoodPlan{% endblock %}
+
+{% block content %}
+<section>
+    <div class="container">
+        <div class="card p-4 mb-4 foodplan__shadow">
+            <div class="text-center mb-4">
+                <img src="{% static 'img/success.svg' %}" alt="Успешная оплата" width="120" height="120">
+                <h2 class="mt-3 foodplan_green">Оплата выполнена успешно!</h2>
+                
+                <div class="alert alert-success mt-4">
+                    <p>Ваша подписка на меню активирована. Теперь вы можете начать пользоваться сервисом!</p>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Информация о заказе</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Заказ:</strong> #{{ order.id }}</p>
+                    <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
+                    <p><strong>Тип меню:</strong> {{ order.subscription.get_menu_type_display }}</p>
+                    <p><strong>Срок подписки:</strong> {{ order.subscription.get_duration_display }}</p>
+                    <p><strong>Сумма:</strong> {{ amount }} ₽</p>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-center mt-4">
+                {% if order.subscription and order.subscription.menu_type %}
+                    <a href="{% url 'recipes:menu_by_type' menu_type=order.subscription.menu_type %}" class="btn btn-success me-3">Перейти к меню</a>
+                {% endif %}
+                <a href="{% url 'lk' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">В личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 
