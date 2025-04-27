@@ -1,3 +1,4 @@
+import re
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -16,6 +17,7 @@ MEAL_TAGS = ['завтрак', 'обед', 'ужин', 'десерт']
 
 
 def register_view(request):
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -35,7 +37,8 @@ def register_view(request):
         else:
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field}: {error}")
+                    if re.search(r'[а-яА-Я]', str(error)):
+                        messages.error(request, error)
 
     else:
         form = CustomUserCreationForm()
