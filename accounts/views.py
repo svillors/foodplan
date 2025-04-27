@@ -10,6 +10,7 @@ from django.utils.timezone import now
 from .forms import CustomUserCreationForm
 from recipes.models import DailyMenu, Recipe
 from order.models import Order
+from recipes.models import Tag
 
 
 def register_view(request):
@@ -65,6 +66,21 @@ def lk_view(request):
     user = request.user
     date = now().date()
 
+    user_menu_tags = user.prefers.filter(name__in=[
+        'Классическое', 'Низкоуглеводное', 'Вегетарианское', 'Кето'
+    ])
+    user_allergy_tags = user.prefers.filter(name__in=[
+        'без морепродуктов',
+        'без мяса',
+        'без зерновых',
+        'без продуктов пчеловодства',
+        'без орехов и бобовых',
+        'без молочных продуктов'
+    ])
+    user_food_intake = user.prefers.filter(name__in=[
+        'завтрак', 'обед', 'ужин', 'десерт'
+    ])
+
     # Получение последнего оплаченного заказа
     try:
         last_order = user.orders.filter(is_paid=True).latest('created_at')
@@ -72,7 +88,7 @@ def lk_view(request):
     except Order.DoesNotExist:
         last_order = None
         can_change_order = False 
-    
+
     # Формирование meal_tags на основе последнего заказа (если есть)
     if last_order:
         meal_tags = []
@@ -84,6 +100,7 @@ def lk_view(request):
             meal_tags.append('ужин')
         if last_order.include_dessert: 
             meal_tags.append('десерт')
+
     # else:
     #     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
     meal_tags = ['завтрак', 'обед', 'ужин', 'десерт']
@@ -92,7 +109,6 @@ def lk_view(request):
         user=user,
         date=date
     )
-    
     final_recipes = []
     
     def meal_index(recipe):
@@ -153,8 +169,7 @@ def lk_view(request):
             except Exception as e:
                 messages.error(request, f'Ошибка: {str(e)}')
         return redirect('lk')
-    
-    # Формирование контекста
+
     context = {
         'user': user,
         'subscription_active': subscription_active,
@@ -162,8 +177,11 @@ def lk_view(request):
         'menu': final_recipes,
         'meal_tags': meal_tags,
         'dailymenu': dailymenu,
-        'order': last_order,  # Передаем последний оплаченный заказ
+        'order': last_order,
         'can_change_order': can_change_order,
+        'user_menu_tags': user_menu_tags,
+        'user_allergy_tags': user_allergy_tags,
+        'user_food_intake': user_food_intake,
     }
     return render(request, 'lk.html', context)
 
@@ -218,5 +236,3 @@ def activate_subscription(request):
 
 def subscribe(request):
     return render(request, 'subscription.html')
-
-

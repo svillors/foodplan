@@ -33,18 +33,24 @@
                     Детали заказа
                 </div>
                 <div class="card-body">
+                    <!-- Тип меню -->
                     <p><strong>Тип меню:</strong> {{ order.get_menu_type_display }}</p>
-                    <p><strong>Срок:</strong> {{ order.duration }} месяц(ев)</p>
-                    <p><strong>Персон:</strong> {{ order.persons }}</p>
-                    <p><strong>Включено:</strong> {{ order.get_selected_meals }}</p>
-                    <p><strong>Аллергии:</strong>
-                        {% if order.allergies.exists %}
-                            {% for allergy in order.allergies.all %}
-                                {{ allergy.name }}{% if not forloop.last %}, {% endif %}
-                            {% endfor %}
-                        {% else %}
+                    <!-- Пищевые предпочтения -->
+                    <p><strong>Прием пищи:</strong>
+                        {% for tag in order.food_intake_tags %}
+                            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
                             Нет
-                        {% endif %}
+                        {% endfor %}
+                    </p>
+                    
+                    <!-- Выбранные теги -->
+                    <p><strong>Аллергии:</strong>
+                        {% for tag in order.prefers %}
+                            {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            Нет
+                        {% endfor %}
                     </p>
                 </div>
             </div>

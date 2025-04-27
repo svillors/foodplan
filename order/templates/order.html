@@ -9,6 +9,16 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Foodplan 2021 - Меню на неделю FOODPLAN</title>
+
+        {% if form.errors %}
+    <div class="alert alert-danger">
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                {{ error }}<br>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 </head>
 <body>
     <header>
@@ -18,7 +28,7 @@
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
                 <h3 class="text-secondary mt-2 me-2">Стоимость: 599₽</h3>
-                <a href="{% url 'subscribe' %}" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">
+                <a href="{% url 'payment' %}" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">
                     Оплатить
                 </a>
             </div>
@@ -27,134 +37,64 @@
     <main style="margin-top: calc(2rem + 85px);">
         <section>
             <div class="container">
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}
-                            {{ error }}<br>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                {% endif %}
                 <h1><strong class="foodplan_green">1 шаг </strong>до первого меню</h1>
                 <h5 class="text-secondary mb-3">Вам будет доступно 4 типа меню: Классическое, Низкоуглеводное, Вегетарианское и Кето.</h5>
                 <form method="POST" action="{% url 'create_order' %}">
                     {% csrf_token %}
                     
-                <div class="row mb-5">
-                    
-                    <div class="col-6 col-md-3">
-                        
-                        <label for="classic" class="position-relative" style="cursor: pointer;">
-                            <img src="{% static 'img/menu_classical.png' %}" alt="" class="w-100">
-                            <input type="radio" name="menu_type" id="classic" value="classic" class="foodplan_selected d-none">
-                            <div class="img_selected" id="img1"></div>
-                        </label>
+                    <div class="row mb-5">
+                        {% for menu_type in MENU_TYPES %}
+                            <div class="col-6 col-md-3">
+                                <label for="menu_{{ menu_type.0 }}">
+                                    <img src="{% static 'img/menu_'|add:menu_type.0|add:'.png' %}" 
+                                        alt="{{ menu_type.1 }}" 
+                                        class="w-100">
+                                    <input type="radio"
+                                        name="menu_type"
+                                        value="{{ menu_type.0 }}"
+                                        id="menu_{{ menu_type.0 }}">
+                                </label>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-6 col-md-3">
-                        
-                        <label for="low" class="position-relative" style="cursor: pointer;">
-                            <img src="{% static 'img/menu_nizkougl.png' %}" alt="" class="w-100">
-                            <input type="radio" name="menu_type" id="low" value="low" class="foodplan_selected d-none">
-                            <div class="img_selected" id="img2"></div>
-                        </label>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        
-                        <label for="veg" class="position-relative" style="cursor: pointer;">
-                            <img src="{% static 'img/menu_veg.png' %}" alt="" class="w-100">
-                            <input type="radio" name="menu_type" id="veg" value="veg" class="foodplan_selected d-none">
-                            <div class="img_selected" id="img3"></div>
-                        </label>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        
-                        <label for="keto" class="position-relative" style="cursor: pointer;">
-                            <img src="{% static 'img/menu_keto.png' %}" alt="" class="w-100">
-                            <input type="radio" name="menu_type" id="keto" value="keto" class="foodplan_selected d-none">
-                            <div class="img_selected" id="img4"></div>
-                        </label>
-                    </div>
-                </div>
-                {% comment %} <h2><strong>Ваши предпочтения</strong></h2>
-                <div class="row mb-5">
-                    {% for tag in form.prefers.field.queryset %}
-                        <div class="col-6 col-md-3">
-                            <label class="position-relative" style="cursor: pointer;">
-                                <input type="checkbox"
-                                       name="prefers"
-                                       value="{{ tag.id }}"
-                                       class="foodplan_selected"
-                                       {% if tag.id|stringformat:"s" in form.prefers.value|stringformat:"s" %}checked{% endif %}>
-                                <img src="{% static 'order/img/menu_'|add:tag.name|lower|add:'.png' %}" alt="" class="w-100">
-                                <div class="img_selected"></div>
-                                <div class="text-center mt-2">{{ tag.name }}</div>
-                            </label>
-                        </div>
-                    {% endfor %}
-                </div> {% endcomment %}
+
                 <table class="table text-center text-truncate mb-5">
                     <tbody>
+                        {% for tag in food_intake %}
                         <tr>
-                            <th scope="row" class="text-start">Срок</th>
-                            <td>
-                                <select name="{{ form.duration.name }}" id="{{ form.duration.id_for_label }}" class="form-select">
-                                    {% for val, text in form.duration.field.choices %}
-                                        <option value="{{ val }}" {% if form.duration.value == val|stringformat:"s" %}selected{% endif %}>{{ text }}</option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Завтраки</th>
+                            <th scope="row" class="text-start">{{ tag.name }}</th>
                             <td>
                                 <div class="form-check">
-                                    {{ form.include_breakfast }}
-                                    <label class="form-check-label" for="{{ form.include_breakfast.id_for_label }}">
+                                    <input type="checkbox"
+                                        name="food_intake"
+                                        value="{{ tag.id }}"
+                                        id="food_intake_{{ tag.id }}"
+                                        class="form-check-input"
+                                        {% if tag.id|stringformat:"s" in form.food_intake.value|stringformat:"s" %}checked{% endif %}>
+                                    <label class="form-check-label" for="food_intake_{{ tag.id }}">
                                     </label>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Обеды</th>
-                            <td>
-                                <div class="form-check">
-                                    {{ form.include_lunch }}
-                                    <label class="form-check-label" for="{{ form.include_lunch.id_for_label }}">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Ужины</th>
-                            <td>
-                                <div class="form-check">
-                                    {{ form.include_dinner }}
-                                    <label class="form-check-label" for="{{ form.include_dinner.id_for_label }}">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="text-start">Десерты</th>
-                            <td>
-                                <div class="form-check">
-                                    {{ form.include_dessert }}
-                                    <label class="form-check-label" for="{{ form.include_dessert.id_for_label }}">
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
+                        {% endfor %}
                         <tr>
                             <th scope="row" class="text-start">Предпочтения</th>
                             <td>
-                                {% for checkbox in allerges_tags %}
-                                    <div class="form-check-input">
-                                        <label class="form-check-label" for="{{ checkbox.name }}">
-                                            {{ checkbox.name }}
-                                        </label>
-                                    </div>
-                                {% endfor %}
+                                <div class="row">
+                                    {% for tag in allerges_tags %}
+                                    <div class="col-6 col-md-3">
+                                            <label class="form-check-label" for="tag_{{ tag.id }}">
+                                                <input type="checkbox"
+                                                       name="allergies"
+                                                       value="{{ tag.id }}"
+                                                       id="tag_{{ tag.id }}"
+                                                       class="form-check-input"
+                                                       {% if tag.id|stringformat:"s" in form.prefers.value|stringformat:"s" %}checked{% endif %}>
+                                                {{ tag.name }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </td>
                         </tr>
                     </tbody>

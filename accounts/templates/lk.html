@@ -139,6 +139,35 @@
                                                         <div class="alert alert-success d-flex justify-content-between align-items-center">
                                                             <div>
                                                                 <b>Подписка активна до: {{ subscription_end|date:"d.m.Y" }}</b>
+                                            
+                                                                <div class="mt-2">
+                                                                    <strong>Тип меню:</strong>
+                                                                    {% for tag in request.user.prefers.all %}
+                                                                    {% if tag.category == 'menu_type' %}
+                                                                        <span class="badge bg-primary">{{ tag.name }}</span>
+                                                                    {% endif %}
+                                                                    {% empty %}
+                                                                        <span class="text-muted">Не выбрано</span>
+                                                                    {% endfor %}
+                                                                    <br>
+                                                                    <strong>Приемы пищи:</strong>
+                                                                    {% for tag in request.user.prefers.all %}
+                                                                    {% if tag.category == 'food_intake' %}
+                                                                        <span class="badge bg-success">{{ tag.name }}</span>
+                                                                        {% endif %}
+                                                                    {% empty %}
+                                                                        <span class="text-muted">Не выбрано</span>
+                                                                    {% endfor %}
+                                                                    <br>
+                                                                    <strong>Исключения:</strong>
+                                                                    {% for tag in request.user.prefers.all %}
+                                                                    {% if tag.category == 'allergy' %}
+                                                                        <span class="badge bg-danger">{{ tag.name }}</span>
+                                                                        {% endif %}
+                                                                    {% empty %}
+                                                                        <span class="text-muted">Нет ограничений</span>
+                                                                    {% endfor %}
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 {% if can_change_order %}
@@ -155,30 +184,6 @@
                                                                 <a href="{% url 'create_order' %}" class="btn btn-outline-success ms-2">Активировать подписку</a>
                                                             </div>
                                                         </div>
-                                                    {% endif %}
-                                                </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    {% if order and subscription_active %}
-                                                        <div class="card mb-4">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title">Ваша подписка</h5>
-                                                                <p class="card-text">
-                                                                    Тип меню: {{ order.get_menu_type_display }}<br>
-                                                                    Срок: {{ order.duration }} мес.<br>
-                                                                    Включено: {{ order.get_selected_meals }}<br>
-                                                                    Персон: {{ order.persons }}<br> 
-                                                                    Аллергии: 
-                                                                    {% for allergy in order.allergies.all %}
-                                                                        {{ allergy.name }}{% if not forloop.last %}, {% endif %}
-                                                                    {% empty %}
-                                                                        Нет
-                                                                    {% endfor %}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    {% else %}
-                                                        {% comment %} <p>У вас нет активной подписки.</p> {% endcomment %}
                                                     {% endif %}
                                                 </div>
                                             </div>

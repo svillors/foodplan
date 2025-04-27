@@ -12,35 +12,55 @@ class OrderForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-    DURATION_CHOICES = [
-        (1, '1 мес.'),
-    ]
-    
-    duration = forms.ChoiceField(
-        choices=DURATION_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-select'})
+    food_intake = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.filter(name__in=['завтрак', 'обед', 'ужин', 'десерт']),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
     )
+    meal_tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.filter(category='food_intake'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    allergy_tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.filter(category='allergy'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    MENU_TYPES = [
+        ('classic', 'Классическое'),
+        ('low', 'Низкоуглеводное'),
+        ('veg', 'Вегетарианское'),
+        ('keto', 'Кето'),
+    ]
 
+    menu_type = forms.ChoiceField(
+        choices=MENU_TYPES,
+        widget=forms.RadioSelect(attrs={'class': 'd-none'}),
+        label='Тип меню',
+        required=True,
+    )
+    
     class Meta:
         model = Order
         fields = [
-            'allergies', 'menu_type','include_breakfast', 'include_lunch',
-            'include_dinner', 'include_dessert', 'prefers'
+            'allergies', 'menu_type', 'include_breakfast', 'include_lunch',
+            'include_dinner', 'include_dessert', 'prefers', 'food_intake', 'allergy_tags'
         ]
         widgets = {
             'menu_type': forms.RadioSelect,
-            'duration': forms.Select(attrs={'class': 'form-select'}),
             'include_breakfast': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'include_lunch': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'include_dinner': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'include_dessert': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            # 'persons': forms.Select(attrs={'class': 'form-select'}),
             'allergies': forms.CheckboxSelectMultiple(),
+            'food_intake': forms.CheckboxSelectMultiple(),
+            'prefers': forms.CheckboxSelectMultiple(),
         }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Добавьте классы Bootstrap для стилизации формы
         self.fields['menu_type'].widget.attrs.update({'class': 'form-control'})
-        self.fields['duration'].widget.attrs.update({'class': 'form-control'})
-        self.fields['prefers'].widget.attrs.update({'class': 'form-control'})
+        self.fields['prefers'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['food_intake'].widget.attrs.update({'class': 'form-check-input'})
+        self.fields['allergies'].widget.attrs.update({'class': 'form-check-input'})

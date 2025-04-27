@@ -53,9 +53,15 @@ class Tag(models.Model):
         max_length=50,
         unique=True
     )
+    CATEGORIES = [
+        ('menu_type', 'Тип меню'),
+        ('food_intake', 'Приём пищи'),
+        ('allergy', 'Аллергия'),
+    ]
+    category = models.CharField(max_length=20, choices=CATEGORIES, default='food_intake')
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.get_category_display()})"
 
 
 class Recipe(models.Model):

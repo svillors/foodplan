@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from recipes.admin import Tag
 User = get_user_model()
 
 
@@ -21,7 +21,13 @@ class Order(models.Model):
     prefers = models.ManyToManyField(
         'recipes.Tag',
         verbose_name='Предпоч',
-        blank=True
+        blank=True,
+    )
+    tags = models.ManyToManyField(
+        'recipes.Tag',
+        verbose_name='Теги',
+        blank=True,
+        related_name='orders_tags'
     )
     MENU_TYPES = [
         ('classic', 'Классическое'),
@@ -39,12 +45,13 @@ class Order(models.Model):
     duration = models.PositiveSmallIntegerField(
         'Срок (месяцев)', 
         default=1,
+        null=True, blank=True
     )
     include_breakfast = models.BooleanField('Завтраки', default=True)
     include_lunch = models.BooleanField('Обеды', default=True)
     include_dinner = models.BooleanField('Ужины', default=True)
     include_dessert = models.BooleanField('Десерты', default=True)
-    persons = models.PositiveSmallIntegerField('Количество персон', default=1)
+    persons = models.PositiveSmallIntegerField('Количество персон', default=1, null=True, blank=True)
     allergies = models.ManyToManyField(
         Allergy,
         verbose_name='Предпочтения',
@@ -53,6 +60,7 @@ class Order(models.Model):
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     is_paid = models.BooleanField('Оплачен', default=False)
     updated_at = models.DateTimeField('Дата изменения', auto_now=True) 
+    menu_slug = models.CharField(max_length=50, blank=True, null=True)
 
     def get_menu(self):
         return f"Меню: {self.menu_type}, Персон: {self.persons}"
@@ -68,3 +76,11 @@ class Order(models.Model):
         if self.include_dessert: 
             meals.append('Десерты')
         return ', '.join(meals)
+    
+    def get_menu_type_value(self, menu_types):
+        """Получаем значение menu_type из MENU_TYPES"""
+        for value, name in menu_types:
+            if name == self.menu_tag.name:
+                return value
+        return None
+    
