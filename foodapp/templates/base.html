@@ -11,16 +11,17 @@
     <title>{% block title %}FoodPlan - Меню на неделю{% endblock %}</title>
 </head>
 <body>
-<!-- Toast уведомление о выходе -->
-<div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999;">
-  <div id="logoutToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" style="font-size: 1.1em;">
-        <b>Вы вышли из учетной записи!</b>
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+<!-- Toast для уведомлений -->
+<div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+    <div id="logoutToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">FoodPlan</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Вы вышли из учетной записи!
+        </div>
     </div>
-  </div>
 </div>
 
 <header>
@@ -39,7 +40,7 @@
                         {% if user.is_authenticated %}
                         <a href="{% url 'subscriptions:my' %}" class="btn shadow-none btn-outline-success me-2 foodplan_green foodplan__border_green">Подписка</a>
                         <a href="{% url 'lk' %}" class="btn shadow-none btn-outline-success me-2 foodplan_green foodplan__border_green">Профиль</a>
-                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        <form action="{% url 'logout' %}" method="post" class="d-inline" id="logoutForm">
                             {% csrf_token %}
                             <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Выйти</button>
                         </form>
@@ -88,11 +89,39 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Инициализация toast
+        const logoutToast = new bootstrap.Toast(document.getElementById('logoutToast'));
+
+        // Обработка формы выхода
+        const logoutForm = document.getElementById('logoutForm');
+        if (logoutForm) {
+            logoutForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Показываем toast
+                logoutToast.show();
+
+                // Отправляем форму через AJAX
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    credentials: 'same-origin'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        setTimeout(() => {
+                            window.location.href = "/?logged_out=1";
+                        }, 1500);
+                    }
+                });
+            });
+        }
+        // Показываем toast, если есть logged_out=1 в URL
         if (window.location.search.indexOf('logged_out=1') !== -1) {
-            var toastEl = document.getElementById('logoutToast');
-            var toast = new bootstrap.Toast(toastEl, { delay: 2500 });
-            toast.show();
-            // Удаляем параметр из URL, чтобы не показывать окно при обновлении
+            logoutToast.show();
+            // Удаляем параметр из URL, чтобы не показывать повторно
             if (window.history.replaceState) {
                 const url = new URL(window.location);
                 url.searchParams.delete('logged_out');
