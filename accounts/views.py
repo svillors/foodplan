@@ -1,16 +1,14 @@
-import random
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.timezone import now
+from django.views.decorators.http import require_POST
 
-from .forms import CustomUserCreationForm
-from recipes.models import DailyMenu, Recipe
 from order.models import Order
+from recipes.models import DailyMenu, Recipe
+from .forms import CustomUserCreationForm
 from .utils import get_random_recipe_by_prefers, meal_index
 
 
@@ -69,11 +67,14 @@ def login_view(request):
 def lk_view(request):
     user = request.user
     date = now().date()
+
     try:
         last_order = user.orders.filter(is_paid=True).latest('created_at')
         can_change_order = True
     except Order.DoesNotExist:
         last_order = None
+        can_change_order = False
+
         can_change_order = False
 
     dailymenu, created = DailyMenu.objects.get_or_create(
@@ -134,9 +135,6 @@ def lk_view(request):
         'dailymenu': dailymenu,
         'order': last_order,
         'can_change_order': can_change_order,
-        # 'user_menu_tags': user_menu_tags,
-        # 'user_allergy_tags': user_allergy_tags,
-        # 'user_food_intake': user_food_intake,
     }
     return render(request, 'lk.html', context)
 
