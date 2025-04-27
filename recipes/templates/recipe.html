@@ -18,7 +18,7 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
-                <button class="btn btn-outline-success me-2 shadow-none foodplan_green foodplan__border_green" onclick="window.location.href='{% url 'lk' %}#menu'">Назад</button>
+                <button class="btn btn-outline-success me-2 shadow-none foodplan_green foodplan__border_green" onclick="history.back();">Назад</button>
             </div>
         </nav>
     </header>
@@ -26,7 +26,7 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-12 col-md-4 d-flex justify-content-center">
+                    <div class="col-12 col-md-4 d-flex justify-content-center align-items-start">
                         <div class="card foodplan__card_borderless">
                             <img src="{{recipe.image.url}}" alt="qwe">
                         </div>
