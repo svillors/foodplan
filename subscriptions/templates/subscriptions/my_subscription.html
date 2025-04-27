@@ -61,7 +61,7 @@
                         
                         <div class="d-flex justify-content-between">
                             <a href="{% url 'recipes:menu_by_type' menu_type=subscription.menu_type %}" class="btn btn-success">Перейти к меню</a>
-                            <a href="{% url 'subscriptions:create' %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Изменить подписку</a>
+                            <a href="{% url 'subscriptions:edit' subscription.id %}" class="btn btn-outline-success foodplan_green foodplan__border_green">Изменить подписку</a>
                         </div>
                     </div>
                 </div>

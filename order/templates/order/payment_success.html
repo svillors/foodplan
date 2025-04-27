@@ -22,9 +22,7 @@
                 </div>
                 <div class="card-body">
                     <p><strong>Заказ:</strong> #{{ order.id }}</p>
-                    <p><strong>Статус:</strong> {{ order.get_status_display }}</p>
                     <p><strong>Тип меню:</strong> {{ order.subscription.get_menu_type_display }}</p>
-                    <p><strong>Срок подписки:</strong> {{ order.subscription.get_duration_display }}</p>
                     <p><strong>Сумма:</strong> {{ amount }} ₽</p>
                 </div>
             </div>

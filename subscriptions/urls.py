@@ -7,4 +7,5 @@ urlpatterns = [
     path('entry/', views.subscription_entrypoint, name='entry'),
     path('create/', views.create_subscription, name='create'),
     path('my/', views.my_subscription, name='my'),
+    path('edit/<int:subscription_id>/', views.edit_subscription, name='edit'),
 ] 

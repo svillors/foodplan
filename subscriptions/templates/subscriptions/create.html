@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-<h1 style="color:red;">ТЕСТ ПОДПИСКИ</h1>
+
 {% block title %}Выбор подписки - FoodPlan{% endblock %}
 
 {% block content %}
@@ -65,7 +65,8 @@
                     <tr>
                         <th scope="row" class="text-start">Срок</th>
                         <td>
-                            {{ form.duration }}
+                            <input type="hidden" name="duration" value="1">
+                            1 месяц
                         </td>
                     </tr>
                     <tr>
@@ -79,6 +80,15 @@
                         <td>
                             {{ form.include_lunch }}
                         </td>
+                        <tr>
+                            
+                        <th scope="row" class="text-start">Кол-во персон</th>
+                        <td>
+                            <input type="hidden" name="persons_count" value="1">
+                            1
+                        </td>
+                        </tr>
+    
                     </tr>
                     <tr>
                         <th scope="row" class="text-start">Ужины</th>
@@ -90,12 +100,6 @@
                         <th scope="row" class="text-start">Десерты</th>
                         <td>
                             {{ form.include_dessert }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="text-start">Кол-во персон</th>
-                        <td>
-                            {{ form.persons_count }}
                         </td>
                     </tr>
                     <tr>

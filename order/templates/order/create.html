@@ -13,8 +13,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Тип меню:</strong> {{ order.subscription.get_menu_type_display }}</p>
+                    <p><strong>Дата начала:</strong> {{ order.subscription.start_date|date:'d.m.Y' }}</p>
+                    <p><strong>Дата окончания:</strong> {{ order.subscription.end_date|date:'d.m.Y' }}</p>
                     <p><strong>Срок подписки:</strong> {{ order.subscription.get_duration_display }}</p>
-                    <p><strong>Количество персон:</strong> {{ order.subscription.persons_count }}</p>
                 </div>
                 <div class="col-md-6">
                     <p><strong>Приемы пищи:</strong>
@@ -43,16 +44,8 @@
             </div>
         </div>
         
-        <form class="card d-flex flex-row align-items-baseline mb-5 p-3 foodplan__bg_grey" id="promo-form">
-            {% csrf_token %}
-            <input type="hidden" name="order_id" value="{{ order.id }}">
-            <label for="promoCode" class="form-label me-2">Промокод</label>
-            <input type="text" class="form-control me-2" id="promoCode" name="code">
-            <button type="submit" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Применить</button>
-        </form>
-        
         <div class="d-flex justify-content-center my-5">
-            <a href="{% url 'orders:payment_demo' order.id %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green w-50">Оплатить</a>
+            <a href="{% url 'orders:payment_demo' order.id %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green me-3">Оплатить</a>
         </div>
     </div>
 </section>
@@ -81,40 +74,6 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const promoForm = document.getElementById('promo-form');
-        
-        promoForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(promoForm);
-            
-            fetch('{% url "orders:apply_promo_code" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Обновляем сумму заказа на странице
-                    const amountElement = document.querySelector('.foodplan_green.mb-0');
-                    amountElement.textContent = data.new_amount + ' ₽';
-                    
-                    // Показываем сообщение об успехе
-                    alert('Промокод применен! Скидка: ' + data.discount + '%');
-                } else {
-                    // Показываем сообщение об ошибке
-                    alert('Ошибка: ' + data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Произошла ошибка при применении промокода.');
-            });
-        });
-
         // Проверяем наличие параметра logged_out в URL
         if (window.location.search.indexOf('logged_out=1') !== -1) {
             var logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));

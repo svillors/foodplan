@@ -14,6 +14,7 @@ def create_subscription(request):
         if form.is_valid():
             subscription = form.save(commit=False)
             subscription.user = request.user
+            subscription.persons_count = 1
             subscription.save()
             
             # Перенаправляем на оформление заказа
@@ -55,4 +56,18 @@ def create_order(request, subscription_id=None):
     pass 
 
 def menu_by_type(request, menu_type):
-    return render(request, 'recipes/menu_by_type.html') 
+    return render(request, 'recipes/menu_by_type.html')
+
+
+@login_required
+def edit_subscription(request, subscription_id):
+    subscription = Subscription.objects.get(id=subscription_id, user=request.user)
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST, instance=subscription)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Изменения в подписке сохранены.")
+            return redirect('subscriptions:my')
+    else:
+        form = SubscriptionForm(instance=subscription)
+    return render(request, 'subscriptions/edit.html', {'form': form, 'subscription': subscription}) 
