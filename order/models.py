@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from recipes.admin import Tag
 User = get_user_model()
 
 
@@ -78,7 +77,6 @@ class Order(models.Model):
         return ', '.join(meals)
     
     def get_menu_type_value(self, menu_types):
-        """Получаем значение menu_type из MENU_TYPES"""
         for value, name in menu_types:
             if name == self.menu_tag.name:
                 return value

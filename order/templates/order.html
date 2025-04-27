@@ -80,16 +80,16 @@
                         <tr>
                             <th scope="row" class="text-start">Предпочтения</th>
                             <td>
-                                <div class="row">
-                                    {% for tag in allerges_tags %}
-                                    <div class="col-6 col-md-3">
+                                <div class="d-flex flex-column gap-2" style="max-width: 300px">
+                                    {% for tag in allerges_tags %}  {# Аллергии #}
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   name="allergies"
+                                                   value="{{ tag.id }}"
+                                                   id="tag_{{ tag.id }}"
+                                                   {% if tag.id|stringformat:"s" in form.allergies.value|stringformat:"s" %}checked{% endif %}>
                                             <label class="form-check-label" for="tag_{{ tag.id }}">
-                                                <input type="checkbox"
-                                                       name="allergies"
-                                                       value="{{ tag.id }}"
-                                                       id="tag_{{ tag.id }}"
-                                                       class="form-check-input"
-                                                       {% if tag.id|stringformat:"s" in form.prefers.value|stringformat:"s" %}checked{% endif %}>
                                                 {{ tag.name }}
                                             </label>
                                         </div>

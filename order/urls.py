@@ -4,7 +4,6 @@ from django.urls import path
 
 urlpatterns = [
     path('order/', create_order, name='create_order'),
-    # path('payment/<int:order_id>/', payment, name='payment'),
     path('lk/', lk_view, name='lk'),
     path('payment/', payment, name='payment'),
     path('payment_details/', payment_details, name='payment_details'),

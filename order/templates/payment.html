@@ -11,15 +11,10 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <!-- Навигация -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}">
                 <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="Foodplan">
-            </a>
-            <h3 class="text-secondary mt-2 me-2">Стоимость: 599₽</h3>
-            <a href="{% url 'subscribe' %}" class="btn shadow-none btn-sm btn-outline-success foodplan_green foodplan__border_green">
-                Оплатить
             </a>
         </div>
     </nav>
@@ -33,25 +28,22 @@
                     Детали заказа
                 </div>
                 <div class="card-body">
-                    <!-- Тип меню -->
-                    <p><strong>Тип меню:</strong> {{ order.get_menu_type_display }}</p>
-                    <!-- Пищевые предпочтения -->
+                    <p><strong>Тип меню:</strong> {% if menu_tag %}{{ menu_tag.name }}{% else %}Не выбрано{% endif %}</p>
                     <p><strong>Прием пищи:</strong>
-                        {% for tag in order.food_intake_tags %}
+                        {% for tag in food_intake_tags %}
                             {{ tag.name }}{% if not forloop.last %}, {% endif %}
                         {% empty %}
                             Нет
                         {% endfor %}
                     </p>
-                    
-                    <!-- Выбранные теги -->
                     <p><strong>Аллергии:</strong>
-                        {% for tag in order.prefers %}
+                        {% for tag in allergies_tags %}
                             {{ tag.name }}{% if not forloop.last %}, {% endif %}
                         {% empty %}
                             Нет
                         {% endfor %}
                     </p>
+                    <p><strong>Сумма к оплате:</strong> 599 ₽</p>
                 </div>
             </div>
 
@@ -77,8 +69,6 @@
             {% endif %}
         </div>
     </main>
-
-    <!-- Футер -->
     <footer>
         <nav class="navbar navbar-expand-md navbar-light mt-5">
             <div class="container p-2">
