@@ -203,12 +203,13 @@ def payment_details(request):
         'company_info': company_info,
     })
 
+
 @login_required
 def change_order(request):
     user = request.user
     # Получаем активные предпочтения пользователя
     user_prefers = user.prefers.all()  # Получаем все текущие предпочтения пользователя
-
+    date = timezone.now().date()
     # Ищем последний оплаченный заказ пользователя, если он есть
     last_order = user.orders.filter(is_paid=True).last()
 
@@ -257,6 +258,8 @@ def change_order(request):
             form = OrderForm(instance=last_order)
         else:
             form = OrderForm()
+
+    DailyMenu.objects.get(user=user, date=date).delete()
 
     return render(request, 'change_order.html', {
         'form': form,
