@@ -21,4 +21,4 @@ class RecipeAdmin(admin.ModelAdmin):
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name', 'unit', 'price_per_unit', 'calories_per_unit']
