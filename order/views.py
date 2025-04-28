@@ -169,6 +169,13 @@ def payment_details(request):
         del request.session['order_id']
         if 'menu_tag_id' in request.session:
             del request.session['menu_tag_id']
+        
+        try:
+            user = request.user
+            date = timezone.now().date()
+            DailyMenu.objects.get(user=user, date=date).delete()
+        except DailyMenu.DoesNotExist:
+            pass
 
         messages.success(request, f'Оплата прошла успешно! Номер вашего заказа: #{order.id}')
         return redirect('lk')
