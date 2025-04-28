@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Recipe, Ingredient, IngredientItem, DailyMenu, Tag
+from .models import Recipe, Ingredient, IngredientItem
 
 
 class IngredientItemInline(admin.TabularInline):
@@ -21,12 +21,4 @@ class RecipeAdmin(admin.ModelAdmin):
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(DailyMenu)
-class DailyMenuAdmin(admin.ModelAdmin):
-    pass
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
     pass

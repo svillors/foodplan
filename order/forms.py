@@ -22,7 +22,7 @@ class OrderForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-    allergy_tags = forms.ModelMultipleChoiceField(
+    allergies = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.filter(category='allergy'),
         widget=forms.CheckboxSelectMultiple,
         required=False
@@ -45,7 +45,7 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = [
             'allergies', 'menu_type', 'include_breakfast', 'include_lunch',
-            'include_dinner', 'include_dessert', 'prefers', 'food_intake', 'allergy_tags'
+            'include_dinner', 'include_dessert', 'prefers', 'food_intake',
         ]
         widgets = {
             'menu_type': forms.RadioSelect,

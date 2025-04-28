@@ -40,6 +40,10 @@ def create_order(request):
             data.setlist('prefers', data.getlist('prefers[]'))
             del data['prefers[]']
 
+        if 'allergies[]' in data:
+            data.setlist('allergies', data.getlist('allergies[]'))
+            del data['allergies[]']
+        
         form = OrderForm(data)
 
         if form.is_valid():
@@ -223,8 +227,10 @@ def change_order(request):
             form = OrderForm(instance=last_order)
         else:
             form = OrderForm()
-
-    DailyMenu.objects.get(user=user, date=date).delete()
+    try:
+        DailyMenu.objects.get(user=user, date=date).delete()
+    except DailyMenu.DoesNotExist:
+        pass
 
     return render(request, 'change_order.html', {
         'form': form,
