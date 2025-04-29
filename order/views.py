@@ -40,6 +40,10 @@ def create_order(request):
             data.setlist('prefers', data.getlist('prefers[]'))
             del data['prefers[]']
 
+        if 'allergies[]' in data:
+            data.setlist('allergies', data.getlist('allergies[]'))
+            del data['allergies[]']
+        
         form = OrderForm(data)
 
         if form.is_valid():
@@ -165,6 +169,13 @@ def payment_details(request):
         del request.session['order_id']
         if 'menu_tag_id' in request.session:
             del request.session['menu_tag_id']
+        
+        try:
+            user = request.user
+            date = timezone.now().date()
+            DailyMenu.objects.get(user=user, date=date).delete()
+        except DailyMenu.DoesNotExist:
+            pass
 
         messages.success(request, f'Оплата прошла успешно! Номер вашего заказа: #{order.id}')
         return redirect('lk')
@@ -223,8 +234,10 @@ def change_order(request):
             form = OrderForm(instance=last_order)
         else:
             form = OrderForm()
-
-    DailyMenu.objects.get(user=user, date=date).delete()
+    try:
+        DailyMenu.objects.get(user=user, date=date).delete()
+    except DailyMenu.DoesNotExist:
+        pass
 
     return render(request, 'change_order.html', {
         'form': form,

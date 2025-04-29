@@ -85,7 +85,7 @@
                                         <div class="form-check">
                                             <input class="form-check-input"
                                                    type="checkbox"
-                                                   name="allergies"
+                                                   name="allergies[]"
                                                    value="{{ tag.id }}"
                                                    id="tag_{{ tag.id }}"
                                                    {% if tag.id|stringformat:"s" in form.allergies.value|stringformat:"s" %}checked{% endif %}>

@@ -203,42 +203,48 @@
     "model": "recipes.tag",
     "pk": 1,
     "fields": {
-      "name": "без морепродуктов"
+      "name": "без морепродуктов",
+      "category": "allergy"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 2,
     "fields": {
-      "name": "без мяса"
+      "name": "без мяса",
+      "category": "allergy"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 3,
     "fields": {
-      "name": "без зерновых"
+      "name": "без зерновых",
+      "category": "allergy"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 4,
     "fields": {
-      "name": "без продуктов пчеловодства"
+      "name": "без продуктов пчеловодства",
+      "category": "allergy"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 5,
     "fields": {
-      "name": "без орехов и бобовых"
+      "name": "без орехов и бобовых",
+      "category": "allergy"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 6,
     "fields": {
-      "name": "без молочных продуктов"
+      "name": "без молочных продуктов",
+      "category": "allergy"
     }
   },
   {
@@ -405,7 +411,8 @@
         5,
         6,
         10,
-        11
+        11,
+        14
       ]
     }
   },
@@ -668,6 +675,7 @@
       "description": "Полезный ужин из рыбы. Это блюдо готовится из свежих ингредиентов по проверенному рецепту, обеспечивает насыщенный вкус и полезные питательные вещества, отлично подходит для домашнего меню.",
       "image": "recipes_img/recipe_9.jpg",
       "tags": [
+        1,
         2,
         3,
         4,
@@ -722,6 +730,7 @@
         6,
         8,
         11,
+        12,
         13
       ]
     }
@@ -954,7 +963,8 @@
         5,
         6,
         8,
-        11
+        11,
+        12
       ]
     }
   },
@@ -1010,6 +1020,7 @@
         9,
         11,
         12,
+        13,
         14
       ]
     }
@@ -1073,7 +1084,8 @@
         5,
         10,
         11,
-        13
+        13,
+        14
       ]
     }
   },
@@ -1257,7 +1269,8 @@
         6,
         10,
         11,
-        13
+        13,
+        14
       ]
     }
   },
@@ -1369,6 +1382,7 @@
         6,
         8,
         11,
+        12,
         13
       ]
     }
@@ -1413,7 +1427,8 @@
         5,
         6,
         9,
-        11
+        11,
+        13
       ]
     }
   },
@@ -1663,56 +1678,64 @@
     "model": "recipes.tag",
     "pk": 7,
     "fields": {
-      "name": "завтрак"
+      "name": "завтрак",
+      "category": "food_intake"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 8,
     "fields": {
-      "name": "обед"
+      "name": "обед",
+      "category": "food_intake"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 9,
     "fields": {
-      "name": "ужин"
+      "name": "ужин",
+      "category": "food_intake"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 10,
     "fields": {
-      "name": "десерт"
+      "name": "десерт",
+      "category": "food_intake"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 11,
     "fields": {
-      "name": "классическое"
+      "name": "классическое",
+      "category": "menu_type"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 12,
     "fields": {
-      "name": "низкоуглеводное"
+      "name": "низкоуглеводное",
+      "category": "menu_type"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 13,
     "fields": {
-      "name": "вегетарианское"
+      "name": "вегетарианское",
+      "category": "menu_type"
     }
   },
   {
     "model": "recipes.tag",
     "pk": 14,
     "fields": {
-      "name": "кето"
+      "name": "кето",
+      "category": "menu_type"
     }
   },
   {
@@ -1816,12 +1839,13 @@
     "pk": 47,
     "fields": {
       "name": "Чиа‑пудинг с кокосовым молоком",
-      "description": "Нежный пудинг без сахара, настоянный на семенах чиа и кокосовом молоке, украшенный ломтиками банана.",
+      "description": "Нежный пудинг без сахара, настоянный на семенах чиа и кокосовом молоке, украшенный ломтиками банана и ложкой мёда.",
       "image": "recipes_img/recipe_27.webp",
       "tags": [
         1,
         2,
         3,
+        4,
         5,
         6,
         10,
@@ -1829,42 +1853,6 @@
         12,
         13
       ]
-    }
-  },
-  {
-    "model": "recipes.ingredientitem",
-    "pk": 221,
-    "fields": {
-      "recipe": 47,
-      "ingredient": 33,
-      "quantity": 30
-    }
-  },
-  {
-    "model": "recipes.ingredientitem",
-    "pk": 222,
-    "fields": {
-      "recipe": 47,
-      "ingredient": 21,
-      "quantity": 1
-    }
-  },
-  {
-    "model": "recipes.ingredientitem",
-    "pk": 223,
-    "fields": {
-      "recipe": 47,
-      "ingredient": 22,
-      "quantity": 0.5
-    }
-  },
-  {
-    "model": "recipes.ingredientitem",
-    "pk": 224,
-    "fields": {
-      "recipe": 47,
-      "ingredient": 3,
-      "quantity": 1
     }
   },
   {
@@ -2058,7 +2046,9 @@
         5,
         6,
         9,
-        11
+        11,
+        12,
+        14
       ]
     }
   },
@@ -2189,6 +2179,7 @@
       "description": "Филе лосося, запечённое со сливочным соусом из кокосового молока и свежего шпината.",
       "image": "recipes_img/recipe_33.webp",
       "tags": [
+        1,
         2,
         3,
         4,

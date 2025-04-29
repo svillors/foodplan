@@ -89,21 +89,20 @@
                         <tr>
                             <th scope="row" class="text-start">Предпочтения</th>
                             <td>
-                                <div class="row">
+                                {# делаем вертикальную колонку #}
+                                <div class="d-flex flex-column gap-1">
                                     {% for tag in allergy_tags %}
-                                    <div class="col-6 col-md-3">
                                         <div class="form-check">
-                                            <input type="checkbox"
-                                                   name="prefers"
-                                                   value="{{ tag.id }}"
-                                                   id="tag_{{ tag.id }}"
-                                                   class="form-check-input"
-                                                   {% if tag.id in current_tag_ids %}checked{% endif %}>
+                                            <input  type="checkbox"
+                                                    name="prefers"
+                                                    value="{{ tag.id }}"
+                                                    id="tag_{{ tag.id }}"
+                                                    class="form-check-input"
+                                                    {% if tag.id in current_tag_ids %}checked{% endif %}>
                                             <label class="form-check-label" for="tag_{{ tag.id }}">
                                                 {{ tag.name }}
                                             </label>
                                         </div>
-                                    </div>
                                     {% endfor %}
                                 </div>
                             </td>
