@@ -4,9 +4,18 @@ from recipes.models import Tag
 
 
 class OrderForm(forms.ModelForm):
+    """Форма для создания/редактирования заказа.
 
-    PERSONS_CHOICES = [(i, str(i)) for i in range(1, 7)]
+    Attributes:
+        prefers (ModelMultipleChoiceField): Выбор предпочтений в тегах
+        food_intake (ModelMultipleChoiceField): Приемы пищи для включения
+        meal_tags (ModelMultipleChoiceField): Теги приемов пищи
+        allergies (ModelMultipleChoiceField): Выбор аллергенов
+        menu_type (ChoiceField): Радиокнопки выбора типа меню
 
+    Methods:
+        __init__: Кастомизация атрибутов виджетов
+    """
     prefers = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -40,7 +49,7 @@ class OrderForm(forms.ModelForm):
         label='Тип меню',
         required=True,
     )
-    
+
     class Meta:
         model = Order
         fields = [
@@ -57,8 +66,9 @@ class OrderForm(forms.ModelForm):
             'food_intake': forms.CheckboxSelectMultiple(),
             'prefers': forms.CheckboxSelectMultiple(),
         }
-    
+
     def __init__(self, *args, **kwargs):
+        """Инициализация формы с кастомизацией стилей."""
         super().__init__(*args, **kwargs)
         self.fields['menu_type'].widget.attrs.update({'class': 'form-control'})
         self.fields['prefers'].widget.attrs.update({'class': 'form-check-input'})

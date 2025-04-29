@@ -1,9 +1,27 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from typing import Optional, List
 from .managers import CustomUserManager
 
 
 class CustomUser(AbstractUser):
+    """Кастомная модель пользователя с аутентификацией по email и расширенными полями.
+
+    Заменяет стандартную модель пользователя Django, добавляя:
+    - Аутентификацию по email вместо username
+    - Систему подписки с датой окончания
+    - Пищевые предпочтения через теги
+    - Аватар пользователя
+    - Кастомный менеджер объектов
+
+    Attributes:
+        email (models.EmailField): Уникальный email пользователя (используется для входа)
+        subscription_active (models.BooleanField): Флаг активности подписки
+        subscription_end (models.DateField): Дата окончания подписки
+        prefers (models.ManyToManyField): Связанные теги предпочтений
+        avatar (models.ImageField): Загружаемый аватар пользователя
+        first_name (models.CharField): Имя для персонального обращения
+    """
     username = None
     email = models.EmailField(unique=True, blank=False)
     USERNAME_FIELD = 'email'

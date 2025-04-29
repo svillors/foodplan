@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from recipes.models import Tag
+from django.http import HttpRequest, HttpResponse
 
 from .forms import OrderForm
 from .models import Order
@@ -10,7 +11,15 @@ from recipes.models import DailyMenu
 
 
 @login_required
-def create_order(request):
+def create_order(request: HttpRequest) -> HttpResponse:
+    """Создание нового заказа через форму.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса. Требуется авторизация.
+
+    Returns:
+        HttpResponse: Страница с формой заказа или редирект на оплату.
+    """
     MENU_TYPES = [
         ('classic', 'Классическое'),
         ('low', 'Низкоуглеводное'),
@@ -43,7 +52,7 @@ def create_order(request):
         if 'allergies[]' in data:
             data.setlist('allergies', data.getlist('allergies[]'))
             del data['allergies[]']
-        
+
         form = OrderForm(data)
 
         if form.is_valid():
@@ -89,7 +98,15 @@ def create_order(request):
 
 
 @login_required
-def payment(request):
+def payment(request: HttpRequest) -> HttpResponse:
+    """Обработка страницы оплаты заказа.
+
+    Args:
+        request (HttpRequest): Объект запроса с данными заказа в сессии.
+
+    Returns:
+        HttpResponse: Страница оплаты или редирект на создание заказа.
+    """
     order_data = request.session.get('order_data')
     if not order_data:
         return redirect('create_order')
@@ -136,7 +153,17 @@ def payment(request):
 
 
 @login_required
-def payment_details(request):
+def payment_details(request: HttpRequest) -> HttpResponse:
+    """Завершение процесса оплаты.
+
+    Args:
+        request (HttpRequest): Объект запроса с order_id в сессии.
+
+    Returns:
+        HttpResponse:
+            - Редирект в ЛК с подтверждением оплаты
+            - Редирект на создание заказа при отсутствии данных
+    """
     order_id = request.session.get('order_id')
     if not order_id:
         return redirect('create_order')
@@ -169,7 +196,7 @@ def payment_details(request):
         del request.session['order_id']
         if 'menu_tag_id' in request.session:
             del request.session['menu_tag_id']
-        
+
         try:
             user = request.user
             date = timezone.now().date()
@@ -191,7 +218,15 @@ def payment_details(request):
 
 
 @login_required
-def change_order(request):
+def change_order(request: HttpRequest) -> HttpResponse:
+    """Редактирование активной подписки.
+
+    Args:
+        request (HttpRequest): Объект запроса авторизованного пользователя.
+
+    Returns:
+        HttpResponse: Страница редактирования или редирект в ЛК.
+    """
     user = request.user
     user_prefers = user.prefers.all()
     date = timezone.now().date()
@@ -221,7 +256,9 @@ def change_order(request):
 
             meal_allergy_tag_ids = request.POST.getlist('prefers')
             if meal_allergy_tag_ids:
-                tags_to_add.extend(Tag.objects.filter(id__in=meal_allergy_tag_ids))
+                tags_to_add.extend(Tag.objects.filter(
+                    id__in=meal_allergy_tag_ids)
+                )
 
             user.prefers.set(tags_to_add)
 

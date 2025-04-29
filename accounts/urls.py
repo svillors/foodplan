@@ -5,7 +5,6 @@ from order.views import create_order
 
 
 urlpatterns = [
-
     path('register/', register_view, name='register'),
     path('auth/', login_view, name='auth'),
     path('lk/', lk_view, name='lk'),
@@ -13,6 +12,4 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('subscribe/', subscribe, name='subscribe'),
     path('order/', create_order, name='order'),
-    
-
 ]

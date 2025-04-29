@@ -5,6 +5,18 @@ from django.forms import EmailInput
 
 
 class CustomUserCreationForm(UserCreationForm):
+    """Форма регистрации пользователя с кастомными полями и стилями.
+
+    Наследует стандартную форму UserCreationForm, добавляя:
+    - Поля для email, имени
+    - Кастомные CSS-классы и плейсхолдеры
+    - Валидацию уникальности email
+    - Стилизованные поля ввода паролей
+
+    Attributes:
+        password1 (CharField): Поле ввода пароля
+        password2 (CharField): Поле подтверждения пароля
+    """
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ('email', 'first_name', 'last_name')
@@ -18,10 +30,6 @@ class CustomUserCreationForm(UserCreationForm):
             "first_name": forms.TextInput(attrs={
                 "class": "form-control",
                 "placeholder": "Имя"
-            }),
-            "last_name": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "Фамилия"
             }),
         }
     password1 = forms.CharField(
@@ -43,9 +51,20 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
+    """Форма обновления данных пользователя с ограниченными полями.
+
+    Позволяет изменять:
+    - Имя
+    - Email (только для отображения, редактирование отключено)
+
+    Attributes:
+        Meta.model (CustomUser): Связанная модель пользователя
+        Meta.fields (tuple): Доступные для редактирования поля
+        Meta.widgets (dict): Кастомизация виджетов полей
+    """
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email')
+        fields = ('first_name', 'email')
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),

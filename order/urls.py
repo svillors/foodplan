@@ -7,5 +7,5 @@ urlpatterns = [
     path('lk/', lk_view, name='lk'),
     path('payment/', payment, name='payment'),
     path('payment_details/', payment_details, name='payment_details'),
-    path('change_order/', change_order, name='change_order'), 
+    path('change_order/', change_order, name='change_order'),
 ]

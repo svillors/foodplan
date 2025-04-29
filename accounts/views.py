@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.timezone import now
 from django.views.decorators.http import require_POST
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
 from order.models import Order
 from recipes.models import DailyMenu, Recipe
@@ -16,8 +17,22 @@ from .utils import get_random_recipe_by_prefers, meal_index
 MEAL_TAGS = ['завтрак', 'обед', 'ужин', 'десерт']
 
 
-def register_view(request):
+def register_view(request: HttpRequest) -> HttpResponse:
+    """Обрабатывает регистрацию новых пользователей.
 
+    При GET-запросе отображает пустую форму регистрации.
+    При POST-запросе валидирует данные, создает пользователя,
+    выполняет аутентификацию и перенаправляет в ЛК.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+
+    Returns:
+        HttpResponse: Отрендеренная страница регистрации или редирект в ЛК
+
+    Raises:
+        Exception: При ошибках сохранения пользователя (логируется через messages)
+    """
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -46,7 +61,18 @@ def register_view(request):
     return render(request, 'registration.html', {'form': form})
 
 
-def login_view(request):
+def login_view(request: HttpRequest) -> HttpResponse:
+    """Обрабатывает аутентификацию пользователей.
+
+    При GET-запросе отображает форму входа.
+    При POST-запросе проверяет учетные данные и выполняет вход.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+
+    Returns:
+        HttpResponse: Отрендеренная страница входа или редирект в ЛК
+    """
     if request.user.is_authenticated:
         return redirect('lk')
     if request.method == 'POST':
@@ -67,7 +93,30 @@ def login_view(request):
     return render(request, 'auth.html')
 
 
-def lk_view(request):
+def lk_view(request: HttpRequest) -> HttpResponse:
+    """Отображает личный кабинет пользователя с персональным меню.
+
+    Основные функции:
+    - Проверка активной подписки
+    - Генерация/обновление дневного меню
+    - Обработка изменения имени пользователя
+    - Отображение информации о последнем заказе
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+
+    Returns:
+        HttpResponse: Отрендеренная страница ЛК с инофрмацией:
+            - user: Объект пользователя
+            - subscription_active: Статус подписки
+            - menu: Отсортированный список рецептов
+            - meal_tags: Категории приемов пищи
+            - dailymenu: Текущее дневное меню
+            - order: Последний заказ
+
+    Raises:
+        ObjectDoesNotExist: Если отсутствуют связанные объекты
+    """
     user = request.user
     date = now().date()
 
@@ -142,7 +191,20 @@ def lk_view(request):
     return render(request, 'lk.html', context)
 
 
-def change_recipe(request, pk):
+def change_recipe(request: HttpRequest, pk: int) -> HttpResponseRedirect:
+    """Заменяет рецепт в текущем дневном меню.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+        pk (int): Первичный ключ заменяемого рецепта
+
+    Returns:
+        HttpResponseRedirect: Редирект в ЛК с сообщением о результате
+
+    Raises:
+        Http404: Если рецепт не существует
+        ValueError: При ошибках определения категории рецепта
+    """
     user = request.user
     date = now().date()
     user_tags_all = [tag.name for tag in user.prefers.all()]
@@ -170,7 +232,15 @@ def change_recipe(request, pk):
 
 @login_required
 @require_POST
-def activate_subscription(request):
+def activate_subscription(request: HttpRequest) -> HttpResponseRedirect:
+    """Активирует подписку пользователя на 30 дней.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+
+    Returns:
+        HttpResponseRedirect: Редирект в ЛК
+    """
     user = request.user
     user.subscription_active = True
     user.subscription_end = timezone.now() + timezone.timedelta(days=30)
@@ -178,5 +248,13 @@ def activate_subscription(request):
     return redirect('lk')
 
 
-def subscribe(request):
+def subscribe(request: HttpRequest) -> HttpResponse:
+    """Отображает страницу с информацией о подписке.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса
+
+    Returns:
+        HttpResponse: Отрендеренная страница подписки
+    """
     return render(request, 'subscription.html')

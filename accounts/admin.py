@@ -5,6 +5,17 @@ from .forms import CustomUserCreationForm
 
 
 class CustomUserAdmin(UserAdmin):
+    """Кастомизированная админ-панель для модели CustomUser.
+    Attributes:
+        model (Model): Связанная модель пользователя
+        add_form (Form): Форма для создания новых пользователей
+        list_display (Tuple): Поля для отображения в списке
+        list_filter (Tuple): Поля для фильтрации в правой панели
+        fieldsets (Tuple): Группировка полей в форме редактирования
+        add_fieldsets (Tuple): Поля в форме создания пользователя
+        search_fields (Tuple): Поля для поиска по тексту
+        ordering (Tuple): Параметры сортировки по умолчанию
+    """
     model = CustomUser
     add_form = CustomUserCreationForm
 
